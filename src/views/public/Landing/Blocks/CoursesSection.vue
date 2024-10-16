@@ -17,13 +17,7 @@ import { topCourses } from '../data';
       <CourseCard
         v-for="card in topCourses"
         :key="card.id"
-        :img="card.img"
-        :title="card.title"
-        :author="card.author"
-        :rating="card.rating"
-        :numberOfRatings="card.numberOfRatings"
-        :duration="card.duration"
-        :price="card.price"
+        :card="card"
       />
     </div>
   </section>

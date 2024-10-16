@@ -1,26 +1,52 @@
 <script setup lang="ts">
-import AutoForm from '@/components/ui/auto-form/AutoForm.vue';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/components/ui/form';
+import Input from '@/components/ui/input/Input.vue';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-vue-next';
+import { toTypedSchema } from '@vee-validate/zod';
+import AuthCards from '@/components/Cards/AuthCards.vue';
 
-const registersSchema = z
-  .object({
-    firstName: z.string().min(1, { message: 'First Name is required' }),
-    lastName: z.string().min(1, { message: 'Last Name is required' }),
-    username: z.string().min(1, { message: 'Username is required' }),
-    email: z.string().min(1, { message: 'Email is required' }),
-    password: z.string().min(4, { message: 'Password is required' }),
-    confirmPassword: z
-      .string()
-      .min(4, { message: 'Confirm Password is required' }),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
+const registersSchema = toTypedSchema(
+  z
+    .object({
+      firstName: z
+        .string({ required_error: 'First Name is required' })
+        .min(1, { message: 'First Name is required' }),
+      lastName: z
+        .string({ required_error: 'Last Name is required' })
+        .min(1, { message: 'Last Name is required' }),
+      username: z
+        .string({ required_error: 'Username is required' })
+        .min(1, { message: 'Username is required' }),
+      email: z
+        .string({ required_error: 'Email is required' })
+        .min(1, { message: 'Email is required' }),
+      password: z
+        .string({ required_error: 'Password is required' })
+        .min(4, { message: 'Password is required' }),
+      confirmPassword: z
+        .string({ required_error: 'Confirm Password is required' })
+        .min(4, { message: 'Confirm Password is required' }),
+    })
+    .refine(data => data.password === data.confirmPassword, {
+      message: "Passwords don't match",
+      path: ['confirmPassword'],
+    })
+);
 
 const { handleSubmit } = useForm({
   validationSchema: registersSchema,
+});
+
+const onSubmit = handleSubmit(values => {
+  console.log(values);
 });
 </script>
 
@@ -32,64 +58,136 @@ const { handleSubmit } = useForm({
       class="hidden h-full lg:block"
     />
     <div class="flex w-full justify-center p-8 pr-12 lg:justify-between">
-      <div class="hidden lg:block"></div>
       <div class="w-full space-y-6">
         <h2 class="text-center text-[32px] font-semibold">
           Create Your Account
         </h2>
-        <AutoForm
-          class="grid grid-cols-1 items-end gap-6 md:grid-cols-2"
-          :schema="registersSchema"
-          :field-config="{
-            firstName: {
-              label: 'Full Name',
+        <form
+          class="w-full space-y-[22px]"
+          @submit.prevent="onSubmit"
+        >
+          <div class="flex w-full items-end gap-[30px]">
+            <FormField
+              v-slot="{ componentField, errorMessage }"
+              name="firstName"
+            >
+              <FormItem class="w-full">
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    class="h-16 w-full p-4"
+                    :placeholder="errorMessage || 'First Name'"
+                    v-bind="componentField"
+                  />
+                </FormControl>
+              </FormItem>
+            </FormField>
+            <FormField
+              v-slot="{ componentField, errorMessage }"
+              name="lastName"
+            >
+              <FormItem class="w-full">
+                <FormControl>
+                  <Input
+                    type="text"
+                    class="h-16 w-full p-4"
+                    :placeholder="errorMessage || 'Last Name'"
+                    v-bind="componentField"
+                  />
+                </FormControl>
+              </FormItem>
+            </FormField>
+          </div>
 
-              inputProps: {
-                placeholder: 'First Name',
-                type: 'text',
-                class: 'h-14 p-4 col-span-1 w-full',
-              },
-            },
-            lastName: {
-              hideLabel: true,
+          <FormField
+            v-slot="{ componentField, errorMessage }"
+            name="username"
+          >
+            <FormItem class="w-full">
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="text"
+                  class="h-16 w-full p-4"
+                  :placeholder="errorMessage || 'Username'"
+                  v-bind="componentField"
+                />
+              </FormControl>
+            </FormItem>
+          </FormField>
 
-              inputProps: {
-                placeholder: 'Last Name',
-                type: 'text',
-                class: 'h-14 p-4 col-span-1 w-full',
-              },
-            },
-            username: {
-              inputProps: {
-                class: 'h-14 p-4 col-span-2 w-full',
-                placeholder: 'Username',
-                type: 'text',
-              },
-            },
-            email: {
-              inputProps: {
-                class: 'h-14 p-4 w-full col-span-2',
-                placeholder: 'Email',
-                type: 'email',
-              },
-            },
-            password: {
-              inputProps: {
-                placeholder: 'Password',
-                type: 'password',
-                class: 'h-14 p-4 w-full col-span-1',
-              },
-            },
-            confirmPassword: {
-              hideLabel: true,
-              inputProps: {
-                placeholder: 'Confirm Password',
-                type: 'password',
-                class: 'h-14 p-4 w-full col-span-1',
-              },
-            },
-          }"
-        />
+          <FormField
+            v-slot="{ componentField, errorMessage }"
+            name="email"
+          >
+            <FormItem class="w-full">
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="email"
+                  class="h-16 w-full p-4"
+                  :placeholder="errorMessage || 'Email'"
+                  v-bind="componentField"
+                />
+              </FormControl>
+            </FormItem>
+          </FormField>
+
+          <div class="flex w-full items-end gap-[30px]">
+            <FormField
+              v-slot="{ componentField, errorMessage }"
+              name="password"
+            >
+              <FormItem class="w-full">
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    class="h-16 w-full p-4"
+                    :placeholder="errorMessage || 'Password'"
+                    v-bind="componentField"
+                  />
+                </FormControl>
+              </FormItem>
+            </FormField>
+            <FormField
+              v-slot="{ componentField, errorMessage }"
+              name="confirmPassword"
+            >
+              <FormItem class="w-full">
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    class="h-16 w-full p-4"
+                    :placeholder="errorMessage || 'Confirm Password'"
+                    v-bind="componentField"
+                  />
+                </FormControl>
+              </FormItem>
+            </FormField>
+          </div>
+
+          <Button
+            class="h-12 bg-thirdary text-white hover:bg-thirdary"
+            type="submit"
+          >
+            Create Account <ArrowRight class="ml-2 size-5" />
+          </Button>
+        </form>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="h-[2px] w-full bg-muted" />
+          <p
+            class="w-max text-nowrap text-center text-sm text-muted-foreground"
+          >
+            Sign up with
+          </p>
+          <div class="h-[2px] w-full bg-muted" />
+        </div>
+
+        <div class="w-full"><AuthCards /></div>
       </div>
     </div>
   </section>

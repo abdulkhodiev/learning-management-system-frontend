@@ -4,6 +4,7 @@ import MainPage from '@/views/public/MainPage.vue';
 import HomePage from '@/views/public/Landing/HomePage.vue';
 import LoginPage from '@/views/public/Auth/LoginPage.vue';
 import SignUpPage from '@/views/public/Auth/SignUpPage.vue';
+import { Categories, Category } from '@/views/public/Categories';
 
 const publicRoutes = [
   {
@@ -25,6 +26,16 @@ const publicRoutes = [
         path: 'auth/signup',
         name: 'signup',
         component: SignUpPage,
+      },
+      {
+        path: 'categories',
+        name: 'categories',
+        component: Categories,
+      },
+      {
+        path: 'categories/:categoryId',
+        name: 'category',
+        component: Category,
       },
     ],
   },

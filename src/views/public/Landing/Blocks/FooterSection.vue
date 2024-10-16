@@ -9,7 +9,9 @@ import {
 </script>
 
 <template>
-  <footer class="flex h-[400px] items-center justify-center bg-secondary">
+  <footer
+    class="mt-[60px] flex h-[400px] items-center justify-center bg-secondary"
+  >
     <div class="container flex justify-between">
       <div class="w-[416px] space-y-4">
         <div class="flex items-center space-x-2">

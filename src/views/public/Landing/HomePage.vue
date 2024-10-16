@@ -2,7 +2,6 @@
 import AboutUs from './Blocks/AboutUs.vue';
 import CategoriesSection from './Blocks/CategoriesSection.vue';
 import CoursesSection from './Blocks/CoursesSection.vue';
-import FooterSection from './Blocks/FooterSection.vue';
 import HeroSection from './Blocks/HeroSection.vue';
 import InstuctorsSection from './Blocks/InstuctorsSection.vue';
 import OffersSection from './Blocks/OffersSection.vue';
@@ -18,6 +17,5 @@ import ReviewSection from './Blocks/ReviewSection.vue';
     <InstuctorsSection />
     <ReviewSection />
     <OffersSection />
-    <FooterSection />
   </div>
 </template>
