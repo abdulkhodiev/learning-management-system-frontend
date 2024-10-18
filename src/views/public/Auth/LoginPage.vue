@@ -34,7 +34,9 @@ const onSubmit = handleSubmit(values => {
 </script>
 
 <template>
-  <section class="flex h-[calc(100vh-66px)] items-center justify-between">
+  <section
+    class="-mb-[60px] flex h-[calc(100vh-66px)] items-center justify-between"
+  >
     <div class="flex w-full justify-center p-8 pr-12 lg:justify-between">
       <div class="w-full space-y-6">
         <h2 class="text-center text-[32px] font-semibold">

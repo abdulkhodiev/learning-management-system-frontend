@@ -8,7 +8,7 @@ import { topCourses } from '../data';
     <div class="flex items-center justify-between">
       <h2>Top Courses</h2>
       <RouterLink
-        to="/"
+        to="/courses"
         class="px-6 py-2.5 text-sm text-primary"
         >See all</RouterLink
       >

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import StarIcon from '@/assets/icons/StarIcon.vue';
 import { defineProps } from 'vue';
 
 defineProps({
@@ -37,7 +38,7 @@ defineProps({
           <StarIcon /> {{ card.rating }}
         </p>
         <p class="text-xs font-semibold text-primary-foreground">
-          {{ card.numberOfRatings }} students
+          {{ card.numberOfStudents }} students
         </p>
       </div>
     </CardContent>

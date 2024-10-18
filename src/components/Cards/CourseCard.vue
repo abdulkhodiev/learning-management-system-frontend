@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { useRouter } from 'vue-router';
 
 defineProps({
   card: {
@@ -8,11 +9,14 @@ defineProps({
     required: true,
   },
 });
+
+const router = useRouter();
 </script>
 
 <template>
   <Card
-    class="flex h-[338px] w-full flex-col gap-[10px] rounded-2xl p-4 shadow-[0_0_8px_0_#3B82F61F]"
+    @click="router.push(`/courses/${card.id}`)"
+    class="flex h-[338px] w-full cursor-pointer flex-col gap-[10px] rounded-2xl p-4 shadow-[0_0_8px_0_#3B82F61F]"
   >
     <CardHeader class="p-0">
       <img

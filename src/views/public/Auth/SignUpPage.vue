@@ -51,144 +51,160 @@ const onSubmit = handleSubmit(values => {
 </script>
 
 <template>
-  <section class="flex h-[calc(100vh-66px)] items-center justify-between">
-    <img
+  <section
+    class="flex h-[calc(100vh-66px)] items-center justify-between"
+    id="signup"
+  >
+    <!-- <img
       src="@/assets/auth/signup.png"
       alt="signup"
       class="hidden h-full lg:block"
-    />
-    <div class="flex w-full justify-center p-8 pr-12 lg:justify-between">
-      <div class="w-full space-y-6">
-        <h2 class="text-center text-[32px] font-semibold">
-          Create Your Account
-        </h2>
-        <form
-          class="w-full space-y-[22px]"
-          @submit.prevent="onSubmit"
-        >
-          <div class="flex w-full items-end gap-[30px]">
+    /> -->
+    <div
+      class="container -mb-[60px] flex h-full w-full items-center justify-center"
+    >
+      <div class="w-[60%]"></div>
+      <div class="flex w-full justify-center lg:justify-between">
+        <div class="w-full space-y-6">
+          <h2 class="text-center text-[32px] font-semibold">
+            Create Your Account
+          </h2>
+          <form
+            class="w-full space-y-[22px]"
+            @submit.prevent="onSubmit"
+          >
+            <div class="flex w-full items-end gap-[30px]">
+              <FormField
+                v-slot="{ componentField, errorMessage }"
+                name="firstName"
+              >
+                <FormItem class="w-full">
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      class="h-16 w-full p-4"
+                      :placeholder="errorMessage || 'First Name'"
+                      v-bind="componentField"
+                    />
+                  </FormControl>
+                </FormItem>
+              </FormField>
+              <FormField
+                v-slot="{ componentField, errorMessage }"
+                name="lastName"
+              >
+                <FormItem class="w-full">
+                  <FormControl>
+                    <Input
+                      type="text"
+                      class="h-16 w-full p-4"
+                      :placeholder="errorMessage || 'Last Name'"
+                      v-bind="componentField"
+                    />
+                  </FormControl>
+                </FormItem>
+              </FormField>
+            </div>
+
             <FormField
               v-slot="{ componentField, errorMessage }"
-              name="firstName"
+              name="username"
             >
               <FormItem class="w-full">
-                <FormLabel>Full Name</FormLabel>
                 <FormControl>
+                  <FormLabel>Username</FormLabel>
                   <Input
                     type="text"
                     class="h-16 w-full p-4"
-                    :placeholder="errorMessage || 'First Name'"
+                    :placeholder="errorMessage || 'Username'"
                     v-bind="componentField"
                   />
                 </FormControl>
               </FormItem>
             </FormField>
+
             <FormField
               v-slot="{ componentField, errorMessage }"
-              name="lastName"
+              name="email"
             >
               <FormItem class="w-full">
                 <FormControl>
+                  <FormLabel>Username</FormLabel>
                   <Input
-                    type="text"
+                    type="email"
                     class="h-16 w-full p-4"
-                    :placeholder="errorMessage || 'Last Name'"
+                    :placeholder="errorMessage || 'Email'"
                     v-bind="componentField"
                   />
                 </FormControl>
               </FormItem>
             </FormField>
+
+            <div class="flex w-full items-end gap-[30px]">
+              <FormField
+                v-slot="{ componentField, errorMessage }"
+                name="password"
+              >
+                <FormItem class="w-full">
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      class="h-16 w-full p-4"
+                      :placeholder="errorMessage || 'Password'"
+                      v-bind="componentField"
+                    />
+                  </FormControl>
+                </FormItem>
+              </FormField>
+              <FormField
+                v-slot="{ componentField, errorMessage }"
+                name="confirmPassword"
+              >
+                <FormItem class="w-full">
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      class="h-16 w-full p-4"
+                      :placeholder="errorMessage || 'Confirm Password'"
+                      v-bind="componentField"
+                    />
+                  </FormControl>
+                </FormItem>
+              </FormField>
+            </div>
+
+            <Button
+              class="h-12 bg-thirdary text-white hover:bg-thirdary"
+              type="submit"
+            >
+              Create Account <ArrowRight class="ml-2 size-5" />
+            </Button>
+          </form>
+
+          <div class="flex items-center justify-between gap-3">
+            <div class="h-[2px] w-full bg-muted" />
+            <p
+              class="w-max text-nowrap text-center text-sm text-muted-foreground"
+            >
+              Sign up with
+            </p>
+            <div class="h-[2px] w-full bg-muted" />
           </div>
 
-          <FormField
-            v-slot="{ componentField, errorMessage }"
-            name="username"
-          >
-            <FormItem class="w-full">
-              <FormControl>
-                <FormLabel>Username</FormLabel>
-                <Input
-                  type="text"
-                  class="h-16 w-full p-4"
-                  :placeholder="errorMessage || 'Username'"
-                  v-bind="componentField"
-                />
-              </FormControl>
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField, errorMessage }"
-            name="email"
-          >
-            <FormItem class="w-full">
-              <FormControl>
-                <FormLabel>Username</FormLabel>
-                <Input
-                  type="email"
-                  class="h-16 w-full p-4"
-                  :placeholder="errorMessage || 'Email'"
-                  v-bind="componentField"
-                />
-              </FormControl>
-            </FormItem>
-          </FormField>
-
-          <div class="flex w-full items-end gap-[30px]">
-            <FormField
-              v-slot="{ componentField, errorMessage }"
-              name="password"
-            >
-              <FormItem class="w-full">
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    class="h-16 w-full p-4"
-                    :placeholder="errorMessage || 'Password'"
-                    v-bind="componentField"
-                  />
-                </FormControl>
-              </FormItem>
-            </FormField>
-            <FormField
-              v-slot="{ componentField, errorMessage }"
-              name="confirmPassword"
-            >
-              <FormItem class="w-full">
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    class="h-16 w-full p-4"
-                    :placeholder="errorMessage || 'Confirm Password'"
-                    v-bind="componentField"
-                  />
-                </FormControl>
-              </FormItem>
-            </FormField>
-          </div>
-
-          <Button
-            class="h-12 bg-thirdary text-white hover:bg-thirdary"
-            type="submit"
-          >
-            Create Account <ArrowRight class="ml-2 size-5" />
-          </Button>
-        </form>
-
-        <div class="flex items-center justify-between gap-3">
-          <div class="h-[2px] w-full bg-muted" />
-          <p
-            class="w-max text-nowrap text-center text-sm text-muted-foreground"
-          >
-            Sign up with
-          </p>
-          <div class="h-[2px] w-full bg-muted" />
+          <div class="w-full"><AuthCards /></div>
         </div>
-
-        <div class="w-full"><AuthCards /></div>
       </div>
     </div>
   </section>
 </template>
+
+<style>
+#signup {
+  background-image: url('@/assets/auth/signup.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+</style>
