@@ -81,6 +81,10 @@ const userRoutes = [
         name: 'checkout',
         component: Checkout,
       },
+      {
+        path: 'checkout/success',
+        name: 'checkout-success',
+      },
     ],
   },
 ];

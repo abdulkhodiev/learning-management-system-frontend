@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { Card, CardContent } from '@/components/ui/card';
+import { Divider } from '../Divider';
 </script>
 
 <template>
-  <Card class="w-[330px] bg-thirdary-foreground p-4">
+  <Card class="min-w-[330px] bg-thirdary-foreground p-4">
     <CardContent class="p-0">
       <div class="flex flex-col gap-4">
         <div
