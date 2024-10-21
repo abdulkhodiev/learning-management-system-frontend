@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import HeartIcon from '@/assets/icons/HeartIcon.vue';
 import SearchInput from '../SearchInput.vue';
 import CartIcon from '@/assets/icons/CartIcon.vue';
+import BellIcon from '@/assets/icons/BellIcon.vue';
+import { User2 } from 'lucide-vue-next';
+
+defineProps({
+  role: {
+    type: String,
+    default: 'public',
+  },
+});
 </script>
 
 <template>
@@ -26,14 +36,55 @@ import CartIcon from '@/assets/icons/CartIcon.vue';
           >Teach on Byway</RouterLink
         >
       </div>
-      <div class="flex items-center gap-5">
+
+      <!-- admin -->
+      <div
+        class="flex items-center gap-5"
+        v-if="role === 'admin'"
+      >
         <RouterLink
-          to="/cart"
+          to="/admin/dashboard"
+          class="text-sm text-primary-foreground"
+          >Dashboard</RouterLink
+        >
+      </div>
+
+      <!-- user -->
+      <div
+        class="flex items-center gap-5"
+        v-if="role === 'user'"
+      >
+        <RouterLink
+          to="/user/wishlist"
+          class="text-sm text-primary-foreground"
+        >
+          <HeartIcon />
+        </RouterLink>
+        <RouterLink
+          to="/user/cart"
           class="text-sm text-primary-foreground"
         >
           <CartIcon />
         </RouterLink>
+        <RouterLink
+          to="/user/notification"
+          class="text-sm text-primary-foreground"
+        >
+          <BellIcon />
+        </RouterLink>
+        <RouterLink
+          to="/user/profile"
+          class="text-sm text-primary-foreground"
+        >
+          <User2 />
+        </RouterLink>
+      </div>
 
+      <!-- public -->
+      <div
+        class="flex items-center gap-5"
+        v-if="role === 'public'"
+      >
         <RouterLink
           to="/auth/login"
           class="flex h-10 w-16 items-center justify-center border-[1px] border-primary-foreground text-sm text-primary-foreground"

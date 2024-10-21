@@ -324,3 +324,42 @@ export const review2 = [
     rating: 5,
   },
 ];
+
+export const cartCourses = [
+  {
+    id: '1',
+    title: 'Introduction to UI/UX Design',
+    author: 'Ronald Richards',
+    rating: 4.5,
+    numberOfReviews: 1200,
+    duration: 22,
+    lectures: 155,
+    levels: 'All',
+    img: image,
+    price: 149.99,
+  },
+  {
+    id: '2',
+    title: 'Introduction to UI/UX Design',
+    author: 'Ronald Richards',
+    rating: 4.5,
+    numberOfReviews: 1200,
+    duration: 22,
+    lectures: 155,
+    levels: 'All',
+    img: image,
+    price: 149.99,
+  },
+  {
+    id: '3',
+    title: 'Introduction to UI/UX Design',
+    author: 'Ronald Richards',
+    rating: 4.5,
+    numberOfReviews: 1200,
+    duration: 22,
+    lectures: 155,
+    levels: 'All',
+    img: image,
+    price: 149.99,
+  },
+];
