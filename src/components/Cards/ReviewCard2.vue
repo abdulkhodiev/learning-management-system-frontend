@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <Card
-    class="flex w-full flex-wrap justify-between gap-[10px] rounded-2xl p-6 shadow-[0_0_8px_0_#3B82F61F]"
+    class="flex w-full justify-between gap-[10px] rounded-2xl p-6 shadow-[0_0_8px_0_#3B82F61F]"
   >
     <CardHeader class="flex w-full p-0">
       <div class="flex items-center gap-3">
@@ -26,7 +26,7 @@ defineProps({
         </h3>
       </div>
     </CardHeader>
-    <CardContent class="m-0 flex flex-col justify-between p-0">
+    <CardContent class="m-0 flex flex-col justify-between gap-1.5 p-0">
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-1">
           <StarIcon />
