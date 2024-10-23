@@ -5,7 +5,7 @@ import { Navbar } from './components/Navbar';
 
 <template>
   <div>
-    <Navbar :role="'public'" />
+    <Navbar :role="'user'" />
     <RouterView />
   </div>
 </template>

@@ -11,6 +11,14 @@ import AdminPage from '@/views/admin/AdminPage.vue';
 // UserRoutes
 import { Cart } from '@/views/user/Cart';
 import { Checkout } from '@/views/user/Checkout';
+import {
+  Profile,
+  MyCourses,
+  MyReviews,
+  Teachers,
+  Messages,
+} from '@/views/user/Profile';
+import ProfileLayout from '@/views/user/Profile/ProfileLayout.vue';
 
 const publicRoutes = [
   {
@@ -89,6 +97,38 @@ const userRoutes = [
       {
         path: 'checkout/success',
         name: 'checkout-success',
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: ProfileLayout,
+        children: [
+          {
+            path: 'account',
+            name: 'account',
+            component: Profile,
+          },
+          {
+            path: 'my-courses',
+            name: 'my-courses',
+            component: MyCourses,
+          },
+          {
+            path: 'my-reviews',
+            name: 'my-reviews',
+            component: MyReviews,
+          },
+          {
+            path: 'teachers',
+            name: 'teachers',
+            component: Teachers,
+          },
+          {
+            path: 'messages',
+            name: 'messages',
+            component: Messages,
+          },
+        ],
       },
     ],
   },
