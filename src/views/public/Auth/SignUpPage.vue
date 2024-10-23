@@ -12,6 +12,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-vue-next';
 import { toTypedSchema } from '@vee-validate/zod';
 import AuthCards from '@/components/Cards/AuthCards.vue';
+import { useAuthStore } from '@/stores/auth';
+
+const auth = useAuthStore();
 
 const registersSchema = toTypedSchema(
   z
@@ -46,24 +49,20 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit(values => {
-  console.log(values);
+  auth.register(values);
 });
 </script>
 
 <template>
   <section
-    class="flex h-[calc(100vh-66px)] items-center justify-between"
+    class="-mb-[60px] flex h-[calc(100vh-66px)] items-center justify-between"
     id="signup"
   >
-    <!-- <img
-      src="@/assets/auth/signup.png"
-      alt="signup"
-      class="hidden h-full lg:block"
-    /> -->
-    <div
-      class="container -mb-[60px] flex h-full w-full items-center justify-center"
-    >
-      <div class="w-[60%]"></div>
+    <div class="container flex h-full w-full items-center justify-center">
+      <div
+        class="w-[60%]"
+        id="sideDiv"
+      ></div>
       <div class="flex w-full justify-center lg:justify-between">
         <div class="w-full space-y-6">
           <h2 class="text-center text-[32px] font-semibold">
@@ -206,5 +205,14 @@ const onSubmit = handleSubmit(values => {
   background-image: url('@/assets/auth/signup.png');
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+@media (max-width: 1240px) {
+  #signup {
+    background-image: none;
+  }
+  #sideDiv {
+    display: none;
+  }
 }
 </style>

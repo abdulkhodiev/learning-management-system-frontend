@@ -12,6 +12,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-vue-next';
 import { toTypedSchema } from '@vee-validate/zod';
 import AuthCards from '@/components/Cards/AuthCards.vue';
+import { useAuthStore } from '@/stores/auth';
+
+const auth = useAuthStore();
 
 const registersSchema = toTypedSchema(
   z.object({
@@ -28,8 +31,16 @@ const { handleSubmit } = useForm({
   validationSchema: registersSchema,
 });
 
-const onSubmit = handleSubmit(values => {
-  console.log(values);
+const onSubmit = handleSubmit(async values => {
+  try {
+    await auth.login({
+      email: values.username,
+      password: values.password,
+    });
+    console.log('Login successful');
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
 });
 </script>
 
