@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import ShaereIcon from '@/assets/icons/ShaereIcon.vue';
 import avatar from '@/assets/reviewers/image.png';
-import { Divider } from '@/components/Divider';
 import { Button } from '@/components/ui/button';
 
 const links = [
@@ -30,7 +29,7 @@ const links = [
 
 <template>
   <div
-    class="sticky top-20 h-max w-[290px] space-y-6 rounded-2xl bg-thirdary-foreground"
+    class="sticky top-20 h-max min-w-[290px] space-y-6 overflow-hidden rounded-2xl bg-thirdary-foreground"
   >
     <div class="flex flex-col items-center justify-center gap-4 p-10 pb-0">
       <img
@@ -45,8 +44,6 @@ const links = [
         >Share Profile <ShaereIcon class="ml-2 text-white"
       /></Button>
     </div>
-
-    <Divider />
 
     <div>
       <RouterLink
