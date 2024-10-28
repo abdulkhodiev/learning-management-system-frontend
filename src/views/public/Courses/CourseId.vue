@@ -209,7 +209,7 @@ const reviews = [5, 4, 3, 2, 1];
 
     <!-- Course Buy Card -->
     <Card
-      class="flex h-max min-w-[400px] cursor-pointer flex-col gap-7 rounded-2xl py-4 shadow-[0_0_8px_0_#3B82F61F]"
+      class="sticky top-20 flex h-max min-w-[400px] cursor-pointer flex-col gap-7 rounded-2xl py-4 shadow-[0_0_8px_0_#3B82F61F]"
     >
       <CardHeader class="px-4 py-0">
         <img
