@@ -16,7 +16,7 @@ const router = useRouter();
 
 <template>
   <Card
-    @click="router.push(`/courses/${card.id}`)"
+    @click="router.push(`/user/my-courses/${card.id}`)"
     class="flex w-full cursor-pointer flex-col gap-[10px] rounded-2xl p-4 shadow-[0_0_8px_0_#3B82F61F]"
   >
     <CardHeader class="p-0">

@@ -19,6 +19,7 @@ import {
   Messages,
 } from '@/views/user/Profile';
 import ProfileLayout from '@/views/user/Profile/ProfileLayout.vue';
+import MyCourseId from '@/views/user/Courses/MyCourseId.vue';
 
 const publicRoutes = [
   {
@@ -97,6 +98,11 @@ const userRoutes = [
       {
         path: 'checkout/success',
         name: 'checkout-success',
+      },
+      {
+        path: 'my-courses/:courseId',
+        name: 'my-course-id',
+        component: MyCourseId,
       },
       {
         path: 'profile',

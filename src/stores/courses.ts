@@ -14,7 +14,7 @@ export const userCourseStore = defineStore('courses', {
       this.error = undefined;
       try {
         const data = await courseService.getCourses();
-        this.reviews = data;
+        this.courses = data;
       } catch (error) {
         this.error = error;
       } finally {
