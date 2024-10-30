@@ -73,7 +73,7 @@ defineProps({
           <BellIcon />
         </RouterLink>
         <RouterLink
-          to="/user/profile"
+          to="/user/profile/account"
           class="text-sm text-primary-foreground"
         >
           <User2 />

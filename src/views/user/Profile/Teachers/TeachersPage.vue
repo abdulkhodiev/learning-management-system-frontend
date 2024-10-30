@@ -10,8 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import SearchInput from '@/components/SearchInput.vue';
-import { topCourses, topInstructors } from '@/views/public/Landing/data';
-import BoughtCourseCard from '@/components/Cards/UserProfileCards/BoughtCourseCard.vue';
+import { topInstructors } from '@/views/public/Landing/data';
 import PaginationComponent from '@/components/PaginationComponent.vue';
 import MentorCard from '@/components/Cards/UserProfileCards/MentorCard.vue';
 </script>
@@ -24,9 +23,9 @@ import MentorCard from '@/components/Cards/UserProfileCards/MentorCard.vue';
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
           <p class="text-nowrap text-[15px] text-primary-foreground">Sort by</p>
-          <Select>
+          <Select class="rounded-xl">
             <SelectTrigger
-              class="h-12 border-[1px] border-thirdary px-6 py-2.5"
+              class="h-12 rounded-xl border-[1px] border-thirdary px-6 py-2.5"
             >
               <SelectValue
                 class="text-normal text-sm text-primary-foreground"

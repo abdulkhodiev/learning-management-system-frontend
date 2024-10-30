@@ -17,6 +17,7 @@ import {
   MyReviews,
   Teachers,
   Messages,
+  MessageId,
 } from '@/views/user/Profile';
 import ProfileLayout from '@/views/user/Profile/ProfileLayout.vue';
 import MyCourseId from '@/views/user/Courses/MyCourseId.vue';
@@ -133,6 +134,11 @@ const userRoutes = [
             path: 'messages',
             name: 'messages',
             component: Messages,
+          },
+          {
+            path: 'messages/:messageId',
+            name: 'message-id',
+            component: MessageId,
           },
         ],
       },
