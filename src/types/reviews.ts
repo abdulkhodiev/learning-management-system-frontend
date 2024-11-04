@@ -1,5 +1,5 @@
 interface Review {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   reviewText: string;

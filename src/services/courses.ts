@@ -5,6 +5,12 @@ const getCourses = async () => {
   return response.data;
 };
 
+const getCourseById = async (id: string) => {
+  const response = await $api.get(`/courses/${id}`);
+  return response.data;
+};
+
 export default {
   getCourses,
+  getCourseById,
 };

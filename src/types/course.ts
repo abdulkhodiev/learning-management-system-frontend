@@ -1,6 +1,6 @@
 import type { ReviewsData } from './reviews';
 interface Course {
-  id: number;
+  id: string;
   title: string;
   description: string;
   rating: number;
@@ -10,14 +10,15 @@ interface Course {
     lastName: string;
   };
   languages: {
-    id: number;
+    id: string;
     name: string;
   }[];
   duration: number;
   lectures: number;
   price: number;
   coverImage: string;
-  reviews: ReviewsData[];
+  reviews: ReviewsData;
 }
 
+export type CourseData = Course;
 export type CoursesData = Course[];

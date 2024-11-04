@@ -43,10 +43,22 @@ import ReviewCard2 from '@/components/Cards/ReviewCard2.vue';
 import ReviewSection from '../Landing/Blocks/ReviewSection.vue';
 import ReviewsModal from '@/components/Course/ReviewsModal.vue';
 import CourseCard from '@/components/Cards/CourseCard.vue';
+import { userCourseStore } from '@/stores/courses';
+import { onMounted } from 'vue';
+import { courses } from '@/data';
 
+// Router Usage
 const router = useRouter();
+const courseId = router.currentRoute.value.params.courseId as string;
 
-const courseId = router.currentRoute.value.params;
+const course = courses[1];
+
+// Store Usage
+const courseStore = userCourseStore();
+
+onMounted(() => {
+  courseStore.getCourseById(courseId);
+});
 
 const reviews = [5, 4, 3, 2, 1];
 </script>
@@ -69,25 +81,28 @@ const reviews = [5, 4, 3, 2, 1];
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Course Name</BreadcrumbPage>
+              <BreadcrumbPage>{{ course.title }}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <h1
           class="line-clamp-2 text-[40px] font-bold leading-[48px] text-thirdary"
         >
-          Introduction to User Experience Design
+          {{ course.title }}
         </h1>
         <p class="line-clamp-3 text-primary-foreground">
-          This course is meticulously crafted to provide you with a foundational
-          understanding of the principles, methodologies, and tools that drive
-          exceptional user experiences in the digital landscape.
+          {{ course.description }}
         </p>
         <div class="flex items-center gap-3 text-sm">
           <p class="text-[#FEC84B]">4.6</p>
           <StarsIcon :rating="4.6" />
-          <p class="border-r-[1px] border-thirdary pr-2">(651651 rating)</p>
-          <p>22 Total Hours. 155 Lectures. All levels</p>
+          <p class="border-r-[1px] border-thirdary pr-2">
+            ({{ course.numberOfRatings }} ratings)
+          </p>
+          <p>
+            {{ course.duration }} Total Hours. {{ course.lectures }} Lectures.
+            All levels
+          </p>
         </div>
         <div class="font- flex items-center gap-2 text-sm">
           <img
@@ -101,14 +116,19 @@ const reviews = [5, 4, 3, 2, 1];
               class="text-primary"
               to="/"
             >
-              Ronal Richards</RouterLink
+              {{ course.instructor.firstName }}
+              {{ course.instructor.lastName }}</RouterLink
             >
           </p>
         </div>
         <div class="flex items-center gap-3 text-sm">
           <Globe />
-          <p class="text-primary-foreground">
-            English, Spanish, Italian, German
+          <p
+            class="text-primary-foreground"
+            v-for="lan in course.languages"
+            :key="lan.id"
+          >
+            {{ lan.name }}
           </p>
         </div>
       </div>
@@ -141,10 +161,7 @@ const reviews = [5, 4, 3, 2, 1];
             Course Description
           </h4>
           <p class="text-primary-foreground">
-            This course is meticulously crafted to provide you with a
-            foundational understanding of the principles, methodologies, and
-            tools that drive exceptional user experiences in the digital
-            landscape.
+            {{ course.description }}
           </p>
         </div>
         <div class="space-y-1">
@@ -152,11 +169,7 @@ const reviews = [5, 4, 3, 2, 1];
             Certification
           </h4>
           <p class="text-primary-foreground">
-            At Byway, we understand the significance of formal recognition for
-            your hard work and dedication to continuous learning. Upon
-            successful completion of our courses, you will earn a prestigious
-            certification that not only validates your expertise but also opens
-            doors to new opportunities in your chosen field.
+            {{ course.description }}
           </p>
         </div>
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
