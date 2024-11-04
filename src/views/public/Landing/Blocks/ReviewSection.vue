@@ -6,8 +6,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { testimonials } from '../data';
+import { reviews } from '@/data';
 import ReviewsCard from '../../../../components/Cards/ReviewsCard.vue';
+import { useReviewStore } from '@/stores/reviews';
+import { onMounted } from 'vue';
+
+const reviewsStore = useReviewStore();
+
+onMounted(() => {
+  reviewsStore.getAllReviews();
+});
 </script>
 
 <template>
@@ -35,16 +43,11 @@ import ReviewsCard from '../../../../components/Cards/ReviewsCard.vue';
         <div>
           <CarouselContent>
             <CarouselItem
-              v-for="testemonial in testimonials"
+              v-for="testemonial in reviews"
               :key="testemonial.id"
               class="md:basis-1/2 lg:basis-1/3"
             >
-              <ReviewsCard
-                :text="testemonial.text"
-                :author="testemonial.name"
-                :profile-img="testemonial.avatar"
-                :authors-profession="testemonial.profession"
-              />
+              <ReviewsCard :review="testemonial" />
             </CarouselItem>
           </CarouselContent>
         </div>

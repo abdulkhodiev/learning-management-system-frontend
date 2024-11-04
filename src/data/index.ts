@@ -273,8 +273,8 @@ export const instructors = [
     profile: instructorPicture,
     description:
       'Ronald Richard is a highly skilled UX/UI Designer with over a decade of experience in crafting user-centric digital solutions. With a background in graphic design and a keen eye for detail, Ronald specializes in creating intuitive interfaces that delight users and drive business results.',
-    numberOfStudents: '2400',
-    numberOfReviews: '120',
+    numberOfStudents: 2400,
+    numberOfReviews: 120,
     areasOfExpertise: [
       'User Experience (UX) Design',
       'User Interface (UI) Design',
@@ -296,8 +296,8 @@ export const instructors = [
     profile: instructorPicture,
     description:
       'Ronald Richard is a highly skilled UX/UI Designer with over a decade of experience in crafting user-centric digital solutions. With a background in graphic design and a keen eye for detail, Ronald specializes in creating intuitive interfaces that delight users and drive business results.',
-    numberOfStudents: '2400',
-    numberOfReviews: '120',
+    numberOfStudents: 2400,
+    numberOfReviews: 120,
     areasOfExpertise: [
       'User Experience (UX) Design',
       'User Interface (UI) Design',

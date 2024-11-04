@@ -8,4 +8,5 @@ interface Review {
   profilePicture: string;
 }
 
+export type ReviewData = Review;
 export type ReviewsData = Review[];

@@ -13,22 +13,15 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
-import courseImg from '@/assets/courses/image.png';
 import { Button } from '@/components/ui/button';
 import FacebookIcon from '@/assets/icons/FacebookIcon.vue';
 import GoogleIcon from '@/assets/icons/GoogleIcon.vue';
 import MicrosoftIcon from '@/assets/icons/MicrosoftIcon.vue';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
-import profile from '@/assets/reviewers/image.png';
 import { Globe } from 'lucide-vue-next';
 
 import InstructorInformation from '@/components/Course/InstructorInformation.vue';
-import {
-  courseSyllabus,
-  instructorInfo,
-  review2,
-  topCourses,
-} from '../Landing/data';
+import { courseSyllabus } from '../Landing/data';
 
 import {
   Accordion,
@@ -45,7 +38,9 @@ import ReviewsModal from '@/components/Course/ReviewsModal.vue';
 import CourseCard from '@/components/Cards/CourseCard.vue';
 import { userCourseStore } from '@/stores/courses';
 import { onMounted } from 'vue';
-import { courses } from '@/data';
+import { courses, instructors, reviews } from '@/data';
+import { useInstructorStore } from '@/stores/instructors';
+import { useReviewStore } from '@/stores/reviews';
 
 // Router Usage
 const router = useRouter();
@@ -53,14 +48,32 @@ const courseId = router.currentRoute.value.params.courseId as string;
 
 const course = courses[1];
 
-// Store Usage
+// CourseStore Usage
 const courseStore = userCourseStore();
 
 onMounted(() => {
   courseStore.getCourseById(courseId);
 });
 
-const reviews = [5, 4, 3, 2, 1];
+// InstructorStore Usage
+const instructorStore = useInstructorStore();
+
+onMounted(() => {
+  instructorStore.getInstructorById(course.instructor.id);
+});
+
+const instructor = instructors[0];
+
+// ReviewStore Usage
+const reviewStore = useReviewStore();
+
+onMounted(() => {
+  reviewStore.getReviewsByCourseId(courseId);
+});
+
+const allReviews = reviews;
+
+const stars = [5, 4, 3, 2, 1];
 </script>
 
 <template>
@@ -106,9 +119,9 @@ const reviews = [5, 4, 3, 2, 1];
         </div>
         <div class="font- flex items-center gap-2 text-sm">
           <img
-            :src="profile"
+            :src="instructor.profile"
             alt="img"
-            class="size-10 rounded-full"
+            class="size-10 rounded-full object-cover"
           />
           <p>
             Created by
@@ -174,7 +187,7 @@ const reviews = [5, 4, 3, 2, 1];
         </div>
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
 
-        <InstructorInformation :instructor="instructorInfo" />
+        <InstructorInformation :instructor="instructor" />
 
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
 
@@ -226,15 +239,19 @@ const reviews = [5, 4, 3, 2, 1];
     >
       <CardHeader class="px-4 py-0">
         <img
-          :src="courseImg"
+          :src="course.coverImage"
           alt="img"
           class="h-full w-full object-cover"
         />
       </CardHeader>
       <CardContent class="flex h-full flex-col justify-between gap-6 p-0 px-4">
         <div class="flex items-center gap-[13px]">
-          <h3 class="text-2xl font-semibold text-primary-foreground">$49.5</h3>
-          <h3 class="text-[18px] text-[#94A3B8] line-through">$99.5</h3>
+          <h3 class="text-2xl font-semibold text-primary-foreground">
+            ${{ course.price - course.price * 0.5 }}
+          </h3>
+          <h3 class="text-[18px] text-[#94A3B8] line-through">
+            ${{ course.price }}
+          </h3>
           <h3 class="text-2xl font-semibold text-[#16A34A]">50% Off</h3>
         </div>
         <div class="flex flex-col gap-4">
@@ -278,13 +295,15 @@ const reviews = [5, 4, 3, 2, 1];
       <div class="flex flex-col gap-4">
         <div class="flex items-end gap-2">
           <h2 class="flex items-center gap-1 text-xl font-semibold">
-            <StarIcon /> 4.6
+            <StarIcon /> {{ course.rating }}
           </h2>
-          <p class="text-sm text-primary-foreground">146,951 reviews</p>
+          <p class="text-nowrap text-sm text-primary-foreground">
+            {{ course.numberOfRatings }} reviews
+          </p>
         </div>
         <div class="flex flex-col gap-1">
           <StarsIcon
-            v-for="item in reviews"
+            v-for="item in stars"
             :key="item"
             :rating="item"
           />
@@ -292,11 +311,11 @@ const reviews = [5, 4, 3, 2, 1];
       </div>
       <div class="flex flex-col gap-4">
         <ReviewCard2
-          v-for="review in review2"
+          v-for="review in reviews"
           :key="review.id"
           :review="review"
         />
-        <ReviewsModal :allReviews="review2" />
+        <ReviewsModal :allReviews="reviews" />
       </div>
     </div>
   </div>
@@ -310,7 +329,7 @@ const reviews = [5, 4, 3, 2, 1];
 
     <div class="grid grid-cols-4 gap-6">
       <CourseCard
-        v-for="card in topCourses"
+        v-for="card in courses"
         :key="card.id"
         :card="card"
       />

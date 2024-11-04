@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import StarIcon from '@/assets/icons/StarIcon.vue';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import type { ReviewData } from '@/types/reviews';
 
-defineProps({
-  review: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{
+  review: ReviewData;
+}>();
 </script>
 
 <template>
@@ -17,12 +15,12 @@ defineProps({
     <CardHeader class="flex w-full p-0">
       <div class="flex items-center gap-3">
         <img
-          :src="review.avatar"
+          :src="props.review.profilePicture"
           alt="profile"
           class="size-[60px] rounded-full"
         />
         <h3 class="text-[18px] font-semibold text-primary-foreground">
-          {{ review.name }}
+          {{ props.review.firstName }} {{ props.review.lastName }}
         </h3>
       </div>
     </CardHeader>
@@ -30,14 +28,14 @@ defineProps({
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-1">
           <StarIcon />
-          <p class="text-[18px] font-semibold">{{ review.rating }}</p>
+          <p class="text-[18px] font-semibold">{{ props.review.rating }}</p>
         </div>
         <p class="text-sm text-primary-foreground">
-          Reviewed on 22nd March, 2024
+          {{ props.review.date }}
         </p>
       </div>
       <p class="p-0 text-primary-foreground">
-        {{ review.text }}
+        {{ props.review.reviewText }}
       </p>
     </CardContent>
   </Card>

@@ -2,25 +2,11 @@
 import QuotationIcon from '@/assets/icons/QuotationIcon.vue';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import CardFooter from '@/components/ui/card/CardFooter.vue';
+import type { ReviewData } from '@/types/reviews';
 
-const review = defineProps({
-  text: {
-    type: String,
-    required: true,
-  },
-  author: {
-    type: String,
-    required: true,
-  },
-  profileImg: {
-    type: String,
-    required: true,
-  },
-  authorsProfession: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  review: ReviewData;
+}>();
 </script>
 
 <template>
@@ -32,22 +18,19 @@ const review = defineProps({
     </CardHeader>
     <CardContent class="m-0 flex flex-col justify-between p-0">
       <p class="p-0 text-primary-foreground">
-        {{ review.text }}
+        {{ props.review.reviewText }}
       </p>
     </CardContent>
     <CardFooter class="flex items-center gap-4 p-0">
       <img
-        :src="review.profileImg"
+        :src="props.review.profilePicture"
         alt="avatar"
         class="size-[60px] rounded-full"
       />
       <div>
         <h3 class="text-[18px] font-semibold text-primary-foreground">
-          {{ review.author }}
+          {{ props.review.firstName }} {{ props.review.lastName }}
         </h3>
-        <p class="text-sm text-primary-foreground">
-          {{ review.authorsProfession }}
-        </p>
       </div>
     </CardFooter>
   </Card>
