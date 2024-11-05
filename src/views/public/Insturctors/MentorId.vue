@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
-import { review2, topCourses } from '../Landing/data';
+import { review2 } from '../Landing/data';
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +12,20 @@ import CourseCard from '@/components/Cards/CourseCard.vue';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
 import ReviewCard2 from '@/components/Cards/ReviewCard2.vue';
 import ReviewsModal from '@/components/Course/ReviewsModal.vue';
+import { useInstructorStore } from '@/stores/instructors';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { instructors } from '@/data';
+
+const router = useRouter();
+const instructorId = router.currentRoute.value.params.mentorId as string;
+
+const instructorStore = useInstructorStore();
+onMounted(() => {
+  instructorStore.getInstructorById(instructorId);
+});
+
+const instructor = instructors[0];
 
 const reviews = [5, 4, 3, 2, 1];
 </script>
@@ -23,60 +37,58 @@ const reviews = [5, 4, 3, 2, 1];
         <div class="space-y-4">
           <p>Instructor</p>
           <div>
-            <h2 class="pb-2 text-[32px] font-semibold">Ronald Richards</h2>
-            <p>Web developer, UX/UI Designer, and Teacher</p>
+            <h2 class="pb-2 text-[32px] font-semibold">
+              {{ instructor.firstName }} {{ instructor.lastName }}
+            </h2>
+            <p>{{ instructor.profession }}</p>
           </div>
           <div class="flex max-w-[270px] items-center justify-between gap-6">
             <div class="">
               <p>Total Students</p>
-              <h5 class="text-2xl font-semibold">1000</h5>
+              <h5 class="text-2xl font-semibold">
+                {{ instructor.numberOfStudents }}
+              </h5>
             </div>
             <div>
               <p>Reviews</p>
-              <h5 class="text-2xl font-semibold">Reviews</h5>
+              <h5 class="text-2xl font-semibold">
+                {{ instructor.numberOfReviews }}
+              </h5>
             </div>
           </div>
         </div>
         <div class="space-y-4">
           <div class="space-y-1">
-            <h3>About Ronald Richard</h3>
+            <h3>About {{ instructor.firstName }} {{ instructor.lastName }}</h3>
             <p class="text-base">
-              Ronald Richard is a highly skilled UX/UI Designer with over a
-              decade of experience in crafting user-centric digital solutions.
-              With a background in graphic design and a keen eye for detail,
-              Ronald specializes in creating intuitive interfaces that delight
-              users and drive business results.
+              {{ instructor.description }}
             </p>
           </div>
           <div class="space-y-1">
             <h3>Areas of Expertise</h3>
             <ul class="list-inside list-disc">
               <li
-                v-for="i in 5"
+                v-for="i in instructor.areasOfExpertise"
                 :key="i"
                 class="text-primary-foreground"
               >
-                User Experience (UX) Design
+                {{ i }}
               </li>
             </ul>
           </div>
           <div class="space-y-1">
             <h3>Professional Experience</h3>
             <p class="text-base">
-              Ronald Richard has an extensive professional background in UX/UI
-              design, having worked with renowned companies such as [Company
-              Name] and [Company Name]. His portfolio includes a diverse range
-              of projects spanning web applications, mobile apps, and e-commerce
-              platforms.
+              {{ instructor.professionalExperience }}
             </p>
           </div>
         </div>
       </div>
       <div class="flex flex-col items-center space-y-4">
         <img
-          src="@/assets/reviewers/image.png"
+          :src="instructor.profile"
           alt="img"
-          class="size-[200px] rounded-full"
+          class="size-[200px] rounded-full object-cover"
         />
         <div class="space-y-2">
           <Button
@@ -121,7 +133,7 @@ const reviews = [5, 4, 3, 2, 1];
           <div>
             <CarouselContent>
               <CarouselItem
-                v-for="card in topCourses"
+                v-for="card in instructor.courses"
                 :key="card.id"
                 class="md:basis-1/4 lg:basis-1/4"
               >
@@ -143,7 +155,7 @@ const reviews = [5, 4, 3, 2, 1];
             <h2 class="flex items-center gap-1 text-xl font-semibold">
               <StarIcon /> 4.6
             </h2>
-            <p class="text-sm text-primary-foreground">146,951 reviews</p>
+            <p class="text-sm text-primary-foreground"></p>
           </div>
           <div class="flex flex-col gap-1">
             <StarsIcon
@@ -155,7 +167,7 @@ const reviews = [5, 4, 3, 2, 1];
         </div>
         <div class="flex flex-col gap-4">
           <ReviewCard2
-            v-for="review in review2"
+            v-for="review in instructor.reviews"
             :key="review.id"
             :review="review"
           />

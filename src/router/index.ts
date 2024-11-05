@@ -3,7 +3,7 @@ import HomePage from '@/views/public/Landing/HomePage.vue';
 import LoginPage from '@/views/public/Auth/LoginPage.vue';
 import SignUpPage from '@/views/public/Auth/SignUpPage.vue';
 import { Categories, Category } from '@/views/public/Categories';
-import { Courses, Course, Mentor } from '@/views/public/Courses';
+import { Courses, Course } from '@/views/public/Courses';
 import PublicPage from '@/views/public/PublicPage.vue';
 import UserPage from '@/views/user/UserPage.vue';
 import AdminPage from '@/views/admin/AdminPage.vue';
@@ -21,6 +21,8 @@ import {
 } from '@/views/user/Profile';
 import ProfileLayout from '@/views/user/Profile/ProfileLayout.vue';
 import MyCourseId from '@/views/user/Courses/MyCourseId.vue';
+import MentorId from '@/views/public/Insturctors/MentorId.vue';
+import { Mentors } from '@/views/public/Insturctors';
 
 const publicRoutes = [
   {
@@ -64,9 +66,14 @@ const publicRoutes = [
         component: Course,
       },
       {
+        path: 'mentors',
+        name: 'mentors',
+        component: Mentors,
+      },
+      {
         path: 'mentor/:mentorId',
         name: 'mentor',
-        component: Mentor,
+        component: MentorId,
       },
     ],
   },

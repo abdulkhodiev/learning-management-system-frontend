@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CourseCard from '@/components/Cards/CourseCard.vue';
-import { topCourses } from '../data';
+import { courses } from '@/data';
 </script>
 
 <template>
@@ -15,7 +15,7 @@ import { topCourses } from '../data';
     </div>
     <div class="flex w-full gap-6">
       <CourseCard
-        v-for="card in topCourses"
+        v-for="card in courses.length > 4 ? courses.slice(0, 4) : courses"
         :key="card.id"
         :card="card"
       />

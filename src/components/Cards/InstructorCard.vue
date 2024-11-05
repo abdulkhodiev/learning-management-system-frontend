@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import StarIcon from '@/assets/icons/StarIcon.vue';
 import { defineProps } from 'vue';
+import type { InstructorData } from '@/types/instructor';
 
-defineProps({
-  card: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{
+  card: InstructorData;
+}>();
 </script>
 
 <template>
@@ -16,7 +14,7 @@ defineProps({
   >
     <CardHeader class="p-0">
       <img
-        :src="card.img"
+        :src="props.card.profile"
         alt="Instructor Image"
       />
     </CardHeader>
@@ -24,10 +22,10 @@ defineProps({
     <CardContent class="flex h-full flex-col items-center justify-between p-0">
       <div class="flex flex-col items-center">
         <h3 class="text-[18px] font-semibold text-primary-foreground">
-          {{ card.name }}
+          {{ props.card.firstName }} {{ props.card.lastName }}
         </h3>
         <p class="text-sm text-primary-foreground">
-          {{ card.course }}
+          {{ props.card.profession }}
         </p>
       </div>
       <span class="h-[1px] w-full bg-[#E2E8F0]" />
@@ -35,10 +33,12 @@ defineProps({
         <p
           class="flex items-center gap-1 text-xs font-semibold text-primary-foreground"
         >
-          <StarIcon /> {{ card.rating }}
+          <StarIcon />
+          <!-- {{ props.card.reviews }} -->
+          5.0
         </p>
         <p class="text-xs font-semibold text-primary-foreground">
-          {{ card.numberOfStudents }} students
+          {{ props.card.numberOfStudents }} students
         </p>
       </div>
     </CardContent>

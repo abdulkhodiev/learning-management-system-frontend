@@ -147,29 +147,40 @@ const stars = [5, 4, 3, 2, 1];
       </div>
       <div class="space-y-6">
         <div class="space-x-6">
-          <Button
-            variant="outline"
-            class="h-14 w-[148px] text-sm font-normal"
-            >Description</Button
-          >
-          <Button
-            variant="outline"
-            class="h-14 w-[148px] text-sm font-normal"
-            >Instructor</Button
-          >
-          <Button
-            variant="outline"
-            class="h-14 w-[148px] text-sm font-normal"
-            >Syllabus</Button
-          >
-          <Button
-            variant="outline"
-            class="h-14 w-[148px] text-sm font-normal"
-            >Reviews</Button
-          >
+          <a href="#description">
+            <Button
+              variant="outline"
+              class="h-14 w-[148px] text-sm font-normal"
+              >Description</Button
+            >
+          </a>
+          <a href="#instructor">
+            <Button
+              variant="outline"
+              class="h-14 w-[148px] text-sm font-normal"
+              >Instructor</Button
+            >
+          </a>
+          <a href="#syllabus">
+            <Button
+              variant="outline"
+              class="h-14 w-[148px] text-sm font-normal"
+              >Syllabus</Button
+            >
+          </a>
+          <a href="#reviews">
+            <Button
+              variant="outline"
+              class="h-14 w-[148px] text-sm font-normal"
+              >Reviews</Button
+            >
+          </a>
         </div>
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
-        <div class="space-y-1">
+        <div
+          class="space-y-1"
+          id="description"
+        >
           <h4 class="text-xl font-semibold text-primary-foreground">
             Course Description
           </h4>
@@ -187,11 +198,18 @@ const stars = [5, 4, 3, 2, 1];
         </div>
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
 
-        <InstructorInformation :instructor="instructor" />
+        <div id="instructor">
+          <InstructorInformation :instructor="instructor" />
+        </div>
 
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
 
-        <h4 class="text-xl font-semibold text-primary-foreground">Syllabus</h4>
+        <h4
+          class="text-xl font-semibold text-primary-foreground"
+          id="syllabus"
+        >
+          Syllabus
+        </h4>
 
         <Accordion
           class="rounded-[8px] border-[1px] border-[#E2E8F0] text-primary-foreground"
@@ -286,7 +304,10 @@ const stars = [5, 4, 3, 2, 1];
     </Card>
   </div>
 
-  <div class="container space-y-6">
+  <div
+    class="container space-y-6"
+    id="reviews"
+  >
     <h4 class="text-xl font-semibold text-primary-foreground">
       Learner Reviews
     </h4>
