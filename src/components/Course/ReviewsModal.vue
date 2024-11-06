@@ -9,14 +9,11 @@ import {
 import ReviewCard2 from '../Cards/ReviewCard2.vue';
 import { Button } from '../ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import type { ReviewsData } from '@/types/reviews';
 
-defineProps({
-  allReviews: {
-    type: Array,
-
-    required: true,
-  },
-});
+const props = defineProps<{
+  reviews: ReviewsData;
+}>();
 </script>
 
 <template>
@@ -37,7 +34,8 @@ defineProps({
 
         <div class="grid w-full items-center gap-4">
           <ReviewCard2
-            v-for="review in allReviews"
+            v-for="review in props.reviews"
+            class="flex flex-col"
             :key="review.id"
             :review="review"
           />

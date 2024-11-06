@@ -11,7 +11,7 @@ const props = defineProps<{
 
 <template>
   <Card
-    class="flex h-[276px] w-[432px] flex-col justify-between gap-[10px] rounded-2xl p-6 shadow-[0_0_8px_0_#3B82F61F]"
+    class="flex w-[300px] flex-col justify-between gap-[10px] rounded-2xl p-6 shadow-[0_0_8px_0_#3B82F61F] md:h-[276px] md:w-[432px]"
   >
     <CardHeader class="p-0 text-primary">
       <QuotationIcon />

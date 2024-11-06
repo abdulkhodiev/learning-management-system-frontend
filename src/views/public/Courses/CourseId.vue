@@ -37,7 +37,7 @@ import ReviewSection from '../Landing/Blocks/ReviewSection.vue';
 import ReviewsModal from '@/components/Course/ReviewsModal.vue';
 import CourseCard from '@/components/Cards/CourseCard.vue';
 import { userCourseStore } from '@/stores/courses';
-import { onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { courses, instructors, reviews } from '@/data';
 import { useInstructorStore } from '@/stores/instructors';
 import { useReviewStore } from '@/stores/reviews';
@@ -73,6 +73,14 @@ onMounted(() => {
 
 const allReviews = reviews;
 
+const selectedRating = ref(0);
+const selectRating = (rating: number) => {
+  selectedRating.value = rating;
+};
+const filteredReviews = computed(() => {
+  return allReviews.filter(review => review.rating >= selectedRating.value);
+});
+
 const stars = [5, 4, 3, 2, 1];
 </script>
 
@@ -98,6 +106,58 @@ const stars = [5, 4, 3, 2, 1];
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        <Card
+          class="top-20 flex h-max w-full flex-col gap-7 rounded-2xl py-4 shadow-[0_0_8px_0_#3B82F61F] lg:hidden"
+        >
+          <CardHeader class="px-4 py-0">
+            <img
+              :src="course.coverImage"
+              alt="img"
+              class="h-full w-full object-cover"
+            />
+          </CardHeader>
+          <CardContent
+            class="flex h-full flex-col justify-between gap-6 p-0 px-4"
+          >
+            <div class="flex items-center gap-[13px]">
+              <h3 class="text-2xl font-semibold text-primary-foreground">
+                ${{ course.price - course.price * 0.5 }}
+              </h3>
+              <h3 class="text-[18px] text-[#94A3B8] line-through">
+                ${{ course.price }}
+              </h3>
+              <h3 class="text-2xl font-semibold text-[#16A34A]">50% Off</h3>
+            </div>
+            <div class="flex flex-col gap-4">
+              <Button
+                class=":hover:bg-thirdary h-12 w-full bg-thirdary text-sm text-white"
+              >
+                Add To Cart</Button
+              >
+              <Button
+                variant="outline"
+                class="h-12 w-full border-[1px] border-thirdary text-sm"
+                >Buy Now</Button
+              >
+            </div>
+          </CardContent>
+          <CardContent class="p-0"
+            ><div class="h-[1px] w-full bg-thirdary-foreground"
+          /></CardContent>
+          <CardFooter class="m-0 flex flex-col items-start gap-4 px-4 py-0">
+            <p class="text-primary-foreground">Share</p>
+            <div class="flex gap-3">
+              <FacebookIcon
+                class="size-10 rounded-full border-[2px] border-thirdary-foreground p-1"
+              />
+              <MicrosoftIcon
+                class="size-10 rounded-full border-[2px] border-thirdary-foreground p-1"
+              />
+              <GoogleIcon
+                class="size-10 rounded-full border-[2px] border-thirdary-foreground p-1"
+              /></div
+          ></CardFooter>
+        </Card>
         <h1
           class="line-clamp-2 text-[40px] font-bold leading-[48px] text-thirdary"
         >
@@ -106,12 +166,15 @@ const stars = [5, 4, 3, 2, 1];
         <p class="line-clamp-3 text-primary-foreground">
           {{ course.description }}
         </p>
-        <div class="flex items-center gap-3 text-sm">
-          <p class="text-[#FEC84B]">4.6</p>
-          <StarsIcon :rating="4.6" />
-          <p class="border-r-[1px] border-thirdary pr-2">
-            ({{ course.numberOfRatings }} ratings)
-          </p>
+        <div class="flex flex-col gap-3 text-sm md:flex-row md:items-center">
+          <div class="flex items-center gap-2">
+            <p class="text-[#FEC84B]">4.6</p>
+            <StarsIcon :rating="4.6" />
+            <p class="border-thirdary pr-2 md:border-r-[1px]">
+              ({{ course.numberOfRatings }} ratings)
+            </p>
+          </div>
+
           <p>
             {{ course.duration }} Total Hours. {{ course.lectures }} Lectures.
             All levels
@@ -146,32 +209,32 @@ const stars = [5, 4, 3, 2, 1];
         </div>
       </div>
       <div class="space-y-6">
-        <div class="space-x-6">
+        <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
           <a href="#description">
             <Button
               variant="outline"
-              class="h-14 w-[148px] text-sm font-normal"
+              class="h-14 w-full text-sm font-normal md:w-[148px]"
               >Description</Button
             >
           </a>
           <a href="#instructor">
             <Button
               variant="outline"
-              class="h-14 w-[148px] text-sm font-normal"
+              class="h-14 w-full text-sm font-normal md:w-[148px]"
               >Instructor</Button
             >
           </a>
           <a href="#syllabus">
             <Button
               variant="outline"
-              class="h-14 w-[148px] text-sm font-normal"
+              class="h-14 w-full text-sm font-normal md:w-[148px]"
               >Syllabus</Button
             >
           </a>
           <a href="#reviews">
             <Button
               variant="outline"
-              class="h-14 w-[148px] text-sm font-normal"
+              class="h-14 w-full text-sm font-normal md:w-[148px]"
               >Reviews</Button
             >
           </a>
@@ -225,11 +288,20 @@ const stars = [5, 4, 3, 2, 1];
           >
             <AccordionTrigger
               class="flex w-full justify-start gap-4 hover:no-underline"
-              ><div class="flex w-full items-center justify-between">
-                <h3 class="text-lg font-semibold">{{ section.title }}</h3>
-                <p class="text-sm text-primary-foreground">
-                  {{ section.duration }}
-                </p>
+              ><div class="flex w-full items-center justify-between gap-4">
+                <h3 class="truncate text-lg font-semibold">
+                  {{ section.title }}
+                </h3>
+                <div class="flex flex-col items-center gap-2 md:flex-row">
+                  <p
+                    class="text-nowrap text-sm text-primary-foreground md:border-r-[1px] md:pr-2"
+                  >
+                    {{ course.duration }} Hours
+                  </p>
+                  <p class="text-nowrap text-sm text-primary-foreground">
+                    {{ course.duration }} Lectures
+                  </p>
+                </div>
               </div></AccordionTrigger
             >
             <AccordionContent>
@@ -253,7 +325,7 @@ const stars = [5, 4, 3, 2, 1];
 
     <!-- Course Buy Card -->
     <Card
-      class="sticky top-20 flex h-max min-w-[400px] cursor-pointer flex-col gap-7 rounded-2xl py-4 shadow-[0_0_8px_0_#3B82F61F]"
+      class="sticky top-20 hidden h-max min-w-[400px] cursor-pointer flex-col gap-7 rounded-2xl py-4 shadow-[0_0_8px_0_#3B82F61F] lg:flex"
     >
       <CardHeader class="px-4 py-0">
         <img
@@ -305,14 +377,14 @@ const stars = [5, 4, 3, 2, 1];
   </div>
 
   <div
-    class="container space-y-6"
+    class="container space-y-3 md:space-y-6"
     id="reviews"
   >
     <h4 class="text-xl font-semibold text-primary-foreground">
       Learner Reviews
     </h4>
 
-    <div class="flex justify-between gap-[140px]">
+    <div class="flex flex-col justify-between gap-5 md:flex-row md:gap-[140px]">
       <div class="flex flex-col gap-4">
         <div class="flex items-end gap-2">
           <h2 class="flex items-center gap-1 text-xl font-semibold">
@@ -322,21 +394,23 @@ const stars = [5, 4, 3, 2, 1];
             {{ course.numberOfRatings }} reviews
           </p>
         </div>
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-2">
           <StarsIcon
             v-for="item in stars"
             :key="item"
             :rating="item"
+            @click="selectRating(item)"
+            class="cursor-pointer rounded-xl transition-all duration-300 hover:border"
           />
         </div>
       </div>
       <div class="flex flex-col gap-4">
         <ReviewCard2
-          v-for="review in reviews"
+          v-for="review in filteredReviews"
           :key="review.id"
           :review="review"
         />
-        <ReviewsModal :allReviews="reviews" />
+        <ReviewsModal :reviews="filteredReviews" />
       </div>
     </div>
   </div>
@@ -348,7 +422,9 @@ const stars = [5, 4, 3, 2, 1];
       More Courses Like This
     </h4>
 
-    <div class="grid grid-cols-4 gap-6">
+    <div
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    >
       <CourseCard
         v-for="card in courses"
         :key="card.id"

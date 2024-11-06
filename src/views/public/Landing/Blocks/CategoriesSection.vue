@@ -13,7 +13,7 @@ import CategoriesCard from '@/components/Cards/CategoriesCard.vue';
         >See all</RouterLink
       >
     </div>
-    <div class="flex w-full gap-6">
+    <div class="grid w-full grid-cols-2 gap-6 md:grid-cols-4">
       <CategoriesCard
         v-for="card in topCategories"
         :key="card.id"

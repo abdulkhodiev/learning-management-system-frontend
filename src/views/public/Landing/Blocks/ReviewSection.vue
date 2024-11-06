@@ -20,14 +20,16 @@ onMounted(() => {
 
 <template>
   <section
-    class="flex h-[512px] w-full items-center justify-center bg-thirdary-foreground"
+    class="flex w-full items-center justify-center bg-thirdary-foreground py-10 md:h-[512px] md:p-0"
   >
     <div class="container relative">
       <Carousel class="flex flex-col gap-6">
         <div
           class="relative flex flex-col items-center justify-center md:flex-row md:justify-between"
         >
-          <h2 class="w-[308px] text-thirdary">
+          <h2
+            class="mb-10 w-full text-center text-thirdary md:m-0 md:w-[308px] md:text-start"
+          >
             What Our Customer Say About Us
           </h2>
 
@@ -41,11 +43,11 @@ onMounted(() => {
           </div>
         </div>
         <div>
-          <CarouselContent>
+          <CarouselContent class="w-full pt-10 md:p-0">
             <CarouselItem
               v-for="testemonial in reviews"
               :key="testemonial.id"
-              class="md:basis-1/2 lg:basis-1/3"
+              class="basis-2/2 md:basis-1/2 lg:basis-1/3"
             >
               <ReviewsCard :review="testemonial" />
             </CarouselItem>

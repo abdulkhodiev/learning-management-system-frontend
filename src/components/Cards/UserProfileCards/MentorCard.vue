@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
+import type { InstructorData } from '@/types/instructor';
 import { Mail } from 'lucide-vue-next';
 import { defineProps } from 'vue';
 
-defineProps({
-  card: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{
+  card: InstructorData;
+}>();
 </script>
 
 <template>
@@ -17,7 +15,7 @@ defineProps({
   >
     <CardHeader class="p-0">
       <img
-        :src="card.img"
+        :src="card.profile"
         alt="Instructor Image"
       />
     </CardHeader>
@@ -25,16 +23,16 @@ defineProps({
     <CardContent class="flex h-full flex-col items-center justify-between p-0">
       <div class="flex flex-col items-center">
         <h3 class="text-[18px] font-semibold text-primary-foreground">
-          {{ card.name }}
+          {{ card.firstName }} {{ card.lastName }}
         </h3>
         <p class="text-sm text-primary-foreground">
-          {{ card.course }}
+          {{ card.profession }}
         </p>
       </div>
       <span class="h-[1px] w-full bg-[#E2E8F0]" />
       <Button class="w-full gap-2 text-sm font-medium text-white"
-        >Send Message <Mail
-      /></Button>
+        >Send Message <Mail />
+      </Button>
     </CardContent>
   </Card>
 </template>

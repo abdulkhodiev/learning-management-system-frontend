@@ -29,7 +29,7 @@ defineProps({
           class="text-sm text-primary-foreground"
           >Categories</RouterLink
         >
-        <SearchInput class="md:w-[622px]" />
+        <SearchInput class="md:max-w-[400px] lg:w-[622px]" />
         <RouterLink
           to="/teach-on-byway"
           class="text-sm text-primary-foreground"

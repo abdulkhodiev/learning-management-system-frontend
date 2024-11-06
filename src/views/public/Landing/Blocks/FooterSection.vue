@@ -10,10 +10,12 @@ import {
 
 <template>
   <footer
-    class="mt-[60px] flex h-[400px] items-center justify-center bg-secondary"
+    class="mt-[60px] flex h-full items-center justify-center rounded-t-2xl bg-secondary py-10 md:h-[400px] md:p-0"
   >
-    <div class="container flex justify-between">
-      <div class="w-[416px] space-y-4">
+    <div
+      class="container flex flex-col justify-between gap-10 md:flex-row md:items-start"
+    >
+      <div class="space-y-4 md:w-[416px]">
         <div class="flex items-center space-x-2">
           <img
             src="@/assets/logo/logo.png"

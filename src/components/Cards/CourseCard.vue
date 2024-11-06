@@ -13,7 +13,7 @@ const router = useRouter();
 <template>
   <Card
     @click="router.push(`/courses/${props.card.id}`)"
-    class="flex h-[338px] w-full cursor-pointer flex-col gap-[10px] rounded-2xl p-4 shadow-[0_0_8px_0_#3B82F61F]"
+    class="flex w-full cursor-pointer flex-col gap-[10px] rounded-2xl p-4 shadow-[0_0_8px_0_#3B82F61F] md:h-[338px]"
   >
     <CardHeader class="p-0">
       <img

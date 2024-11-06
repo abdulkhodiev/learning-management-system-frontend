@@ -17,6 +17,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { courses, instructors } from '@/data';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
 import { computed, ref } from 'vue';
@@ -43,18 +44,113 @@ const selectRating = (rating: number) => {
 </script>
 
 <template>
-  <div class="min-h-[calc(100vh-65px)] space-y-6 py-6">
-    <div class="container space-y-6">
-      <h1 class="text-[40px] font-bold text-thirdary">Design Courses</h1>
-      <h2 class="text-2xl font-bold text-thirdary">All Development Courses</h2>
+  <div class="min-h-[calc(100vh-65px)] space-y-6 py-10">
+    <div class="container space-y-3 md:space-y-6">
+      <h1
+        class="text-center text-xl font-bold text-thirdary md:text-start md:text-[40px]"
+      >
+        Design Courses
+      </h1>
+      <h2
+        class="text-center text-lg font-bold text-thirdary md:text-start md:text-2xl"
+      >
+        All Development Courses
+      </h2>
       <div class="flex items-center justify-between">
         <Button
-          class="h-12 border-[1px] border-thirdary bg-transparent px-6 py-2.5 hover:bg-transparent"
+          class="hidden h-12 border-[1px] border-thirdary bg-transparent px-6 py-2.5 hover:bg-transparent md:flex"
         >
           <ListFilter class="mr-2" /> Filter
         </Button>
+        <Dialog>
+          <DialogTrigger class="md:hidden">
+            <Button
+              class="h-12 border-[1px] border-thirdary bg-transparent px-6 py-2.5 hover:bg-transparent"
+            >
+              <ListFilter class="mr-2" /> Filter
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <div class="min-w-[300px]">
+              <Accordion
+                type="single"
+                collapsible
+              >
+                <AccordionItem value="item-1">
+                  <AccordionTrigger class="[&>svg]:order-last">
+                    <p class="text-base">Rating</p>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div class="flex flex-col gap-2">
+                      <StarsIcon
+                        v-for="item in stars"
+                        :key="item"
+                        :rating="item"
+                        @click="selectRating(item)"
+                        class="cursor-pointer rounded-xl transition-all duration-300 hover:border"
+                      />
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <Accordion
+                type="single"
+                collapsible
+              >
+                <AccordionItem value="item-2">
+                  <AccordionTrigger class="[&>svg]:order-last">
+                    <p class="text-base">Number of Chapters</p>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div class="flex flex-col gap-2">
+                      <div
+                        v-for="item in chapters"
+                        :key="item"
+                        class="flex cursor-pointer items-center gap-2 p-2 text-base hover:underline"
+                      >
+                        <input
+                          type="checkbox"
+                          class="h-4 w-4"
+                        />
+                        <label>{{ item }}</label>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <Accordion
+                type="single"
+                collapsible
+              >
+                <AccordionItem value="item-3">
+                  <AccordionTrigger class="[&>svg]:order-last">
+                    <p class="text-base">Price</p>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div class="flex flex-col gap-2">
+                      <label class="text-base">Price Range: {{ price }}</label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="5000"
+                        v-model="price"
+                        class="w-full"
+                      />
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </DialogContent>
+        </Dialog>
         <div class="flex items-center gap-4">
-          <p class="text-nowrap text-[15px] text-primary-foreground">Sort by</p>
+          <p
+            class="hidden text-nowrap text-[15px] text-primary-foreground md:block"
+          >
+            Sort by
+          </p>
           <Select>
             <SelectTrigger
               class="h-12 border-[1px] border-thirdary px-6 py-2.5"
@@ -82,7 +178,7 @@ const selectRating = (rating: number) => {
     </div>
 
     <div class="container flex justify-between gap-6">
-      <div class="min-w-[300px]">
+      <div class="hidden min-w-[300px] md:block">
         <Accordion
           type="single"
           collapsible
@@ -155,7 +251,7 @@ const selectRating = (rating: number) => {
         </Accordion>
       </div>
 
-      <div class="grid w-full grid-cols-2 gap-6 md:grid-cols-3">
+      <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         <CourseCard
           v-for="card in filteredCourses"
           :key="card.id"
@@ -165,11 +261,13 @@ const selectRating = (rating: number) => {
     </div>
 
     <div
-      class="flex items-center justify-center bg-thirdary-foreground p-[60px]"
+      class="flex items-center justify-center bg-thirdary-foreground py-5 md:p-[60px]"
     >
       <div class="container space-y-6">
         <h2>Top Mentors</h2>
-        <div class="flex items-center gap-6">
+        <div
+          class="grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4"
+        >
           <InstructorCard
             v-for="card in instructors"
             :key="card.id"
@@ -181,10 +279,12 @@ const selectRating = (rating: number) => {
       </div>
     </div>
 
-    <div class="flex items-center justify-center p-[60px]">
+    <div class="flex items-center justify-center py-5 md:p-[60px]">
       <div class="container space-y-6">
         <h2>Featured Courses</h2>
-        <div class="flex items-center justify-between gap-6">
+        <div
+          class="grid grid-cols-1 justify-between gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        >
           <CourseCard
             v-for="card in courses.length > 4 ? courses.slice(0, 4) : courses"
             :key="card.id"

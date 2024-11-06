@@ -28,7 +28,7 @@ defineProps({
       <component :is="card.icon" />
     </CardHeader>
     <CardContent class="p-0">
-      <h3>{{ card.title }}</h3>
+      <h3 class="md:text-xl">{{ card.title }}</h3>
     </CardContent>
     <CardFooter class="p-0"> {{ card.desc }} </CardFooter>
   </Card>

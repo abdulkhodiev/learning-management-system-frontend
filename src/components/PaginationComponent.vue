@@ -12,7 +12,7 @@ import {
 <template>
   <Pagination
     v-slot="{ page }"
-    :total="100"
+    :total="20"
     :sibling-count="1"
     show-edges
     :default-page="2"

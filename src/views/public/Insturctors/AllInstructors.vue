@@ -19,7 +19,9 @@ onMounted(() => {});
 
 <template>
   <div class="container min-h-[calc(100vh-65px)] space-y-6 py-6">
-    <h1 class="text-[40px] font-bold text-thirdary">All Instructors</h1>
+    <h1 class="text-xl font-bold text-thirdary md:text-[40px]">
+      All Instructors
+    </h1>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
       <!-- <CourseCard
         v-for="card in courseStore.courses"

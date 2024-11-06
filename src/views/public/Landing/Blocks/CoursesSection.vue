@@ -13,7 +13,9 @@ import { courses } from '@/data';
         >See all</RouterLink
       >
     </div>
-    <div class="flex w-full gap-6">
+    <div
+      class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    >
       <CourseCard
         v-for="card in courses.length > 4 ? courses.slice(0, 4) : courses"
         :key="card.id"

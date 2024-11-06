@@ -13,7 +13,7 @@ import { instructors } from '@/data';
         >See all</RouterLink
       >
     </div>
-    <div class="flex w-full gap-6">
+    <div class="grid w-full grid-cols-2 gap-6 md:grid-cols-4">
       <InstructorCard
         v-for="card in instructors.length > 4
           ? instructors.slice(0, 4)

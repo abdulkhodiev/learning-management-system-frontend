@@ -1,22 +1,36 @@
 import { defineStore } from 'pinia';
-import { type User } from '@/types/user';
+import { type User, type UserRequestData } from '@/types/user';
 import userProfileService from '@/services/user/userProfile';
+import { Users as UserInfo } from '@/data';
 export const useUserStore = defineStore('user', {
   state: () => ({
-    userInfo: null as User | null,
+    user: {} as User,
     isLoading: false,
-    error: null,
+    error: null as Error | null,
   }),
 
   actions: {
-    async fetchUsers() {
+    async getUserProfile() {
       this.isLoading = true;
-      this.error = undefined;
+      this.error = null;
       try {
         const data = await userProfileService.getUserProfile();
-        this.userInfo = data;
+        this.user = UserInfo[0];
       } catch (error) {
-        this.error = error;
+        this.error = error as Error;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async updateUserProfile(data: UserRequestData) {
+      this.isLoading = true;
+      this.error = null;
+      try {
+        const response = await userProfileService.updateUserProfile(data);
+        this.user = response;
+      } catch (error) {
+        this.error = error as Error;
       } finally {
         this.isLoading = false;
       }

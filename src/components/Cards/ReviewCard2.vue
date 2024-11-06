@@ -10,10 +10,10 @@ const props = defineProps<{
 
 <template>
   <Card
-    class="flex w-full justify-between gap-[10px] rounded-2xl p-6 shadow-[0_0_8px_0_#3B82F61F]"
+    class="w-full justify-between gap-10 rounded-2xl p-6 shadow-[0_0_8px_0_#3B82F61F] md:flex md:gap-[10px]"
   >
     <CardHeader class="flex w-full p-0">
-      <div class="flex items-center gap-3">
+      <div class="mb-5 flex items-center gap-3 md:mb-0">
         <img
           :src="props.review.profilePicture"
           alt="profile"
