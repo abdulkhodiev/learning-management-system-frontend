@@ -5,8 +5,6 @@ import { useUserStore } from '@/stores/userProfile';
 
 const userStore = useUserStore();
 
-const user = userStore.user;
-
 const links = [
   {
     name: 'Profile',
@@ -37,11 +35,11 @@ const links = [
   >
     <div class="flex flex-col items-center justify-center gap-4 p-10 pb-0">
       <img
-        :src="user.profilePicture"
+        :src="userStore.user.profilePicture"
         alt="avatar"
         class="w-full rounded-full object-cover"
       />
-      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+      <h2>{{ userStore.user.firstName }} {{ userStore.user.lastName }}</h2>
       <Button
         variant="outline"
         class="h-12 w-full text-sm"

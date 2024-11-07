@@ -27,9 +27,6 @@ import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkele
 
 const userProfileStore = useUserStore();
 
-const courses = userProfileStore.user?.boughtCourses || [];
-
-console.log(courses);
 const stars = [5, 4, 3, 2, 1];
 const chapters = ['1-10', '10-15', '15-20'];
 
@@ -37,6 +34,7 @@ const selectedRating = ref(0);
 const price = ref(5000);
 
 const filteredCourses = computed(() => {
+  const courses = userProfileStore.user?.boughtCourses || [];
   return courses.filter(
     course =>
       course.rating >= selectedRating.value && course.price <= price.value

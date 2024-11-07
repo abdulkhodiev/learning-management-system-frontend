@@ -5,6 +5,8 @@ import ReviewsCard from '@/components/UserProfileCards/ReviewsCard.vue';
 import { useUserStore } from '@/stores/userProfile';
 
 const userStore = useUserStore();
+
+const length = (userStore.user.reviews || []).length;
 </script>
 
 <template>
@@ -31,7 +33,7 @@ const userStore = useUserStore();
     </div>
     <div class="flex justify-center">
       <PaginationComponent
-        :total="userStore.user.reviews.length"
+        :total="length"
         :sibling-count="1"
       />
     </div>

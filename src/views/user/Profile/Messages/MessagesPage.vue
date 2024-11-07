@@ -18,10 +18,14 @@ const router = useRouter();
   <div class="w-full space-y-4">
     <h2>Messages</h2>
     <div class="flex items-center justify-between">
-      <SearchInput class="w-full max-w-[330px]" />
+      <SearchInput class="hidden w-full max-w-[330px] md:block" />
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
-          <p class="text-nowrap text-[15px] text-primary-foreground">Sort by</p>
+          <p
+            class="hidden text-nowrap text-[15px] text-primary-foreground md:block"
+          >
+            Sort by
+          </p>
           <Select>
             <SelectTrigger
               class="h-12 border-[1px] border-thirdary px-6 py-2.5"

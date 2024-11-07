@@ -3,13 +3,11 @@ import { RouterView } from 'vue-router';
 import SideBar from './components/SideBar.vue';
 import BottomBar from './components/BottomBar.vue';
 import { useUserStore } from '@/stores/userProfile';
-import { onMounted } from 'vue';
 
 const userStore = useUserStore();
+console.log(userStore.user);
 
-onMounted(() => {
-  userStore.getUserProfile();
-});
+userStore.getUserProfile();
 </script>
 
 <template>
