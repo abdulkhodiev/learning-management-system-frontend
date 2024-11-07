@@ -40,6 +40,7 @@ const onSubmit = handleSubmit(async values => {
 
   if (isAuthenticated) {
     router.push('/user/profile/account');
+    localStorage.setItem('role', 'user');
     toast.success('Login successful');
   } else {
     toast.error('Login failed');

@@ -5,22 +5,25 @@ import MobileSheet from './components/Navbar/MobileSheet.vue';
 import { Toaster } from '@/components/ui/sonner';
 
 import { useAuthStore } from './stores/auth';
+import BottomBar from './views/user/Profile/components/BottomBar.vue';
 
 const auth = useAuthStore();
+const role = localStorage.getItem('role' as string);
 </script>
 
 <template>
   <div>
     <Navbar
       class="hidden md:block"
-      :role="auth.role"
+      :role="role || auth.role"
     />
     <MobileSheet
       class="md:hidden"
-      :role="'public'"
+      :role="role || auth.role"
     />
 
-    <RouterView />
+    <RouterView class="mb-16 min-h-[calc(100vh-65px)] lg:mb-0" />
+    <BottomBar class="lg:hidden" />
     <Toaster
       position="top-center"
       :richColors="true"

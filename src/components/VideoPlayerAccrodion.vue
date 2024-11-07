@@ -18,7 +18,7 @@ const videoHandler = ({ videoSrc }: { videoSrc: string }) => {
 </script>
 
 <template>
-  <div class="flex w-full justify-between gap-6 py-6">
+  <div class="flex w-full flex-wrap justify-between gap-6 py-6">
     <video
       class="w-full rounded-xl md:max-w-[840px]"
       controls
@@ -37,7 +37,7 @@ const videoHandler = ({ videoSrc }: { videoSrc: string }) => {
     <Accordion
       type="single"
       collapsible
-      class="h-full w-full rounded-xl bg-thirdary-foreground p-0 md:max-w-[400px]"
+      class="h-full w-full overflow-hidden rounded-xl bg-thirdary-foreground p-0 lg:max-w-[400px]"
     >
       <h3 class="p-4">Course Completion</h3>
       <AccordionItem

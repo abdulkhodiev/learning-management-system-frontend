@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {
   BookOpenIcon,
+  HomeIcon,
   MessageCircle,
   StarIcon,
   UserIcon,
@@ -8,6 +9,10 @@ import {
 } from 'lucide-vue-next';
 
 const links = [
+  {
+    name: 'Home',
+    path: '/',
+  },
   {
     name: 'Profile',
     path: '/user/profile/account',
@@ -42,6 +47,13 @@ const links = [
         class="w-full items-center justify-center"
         :to="link.path"
         ><div
+          v-if="link.name === 'Home'"
+          class="flex w-full items-center justify-center rounded-xl p-2 transition-all duration-300 hover:bg-thirdary hover:text-white"
+          :class="$route.path === link.path ? 'bg-thirdary text-white' : ''"
+        >
+          <HomeIcon />
+        </div>
+        <div
           v-if="link.name === 'Profile'"
           class="flex w-full items-center justify-center rounded-xl p-2 transition-all duration-300 hover:bg-thirdary hover:text-white"
           :class="$route.path === link.path ? 'bg-thirdary text-white' : ''"

@@ -43,9 +43,10 @@ export const useInstructorStore = defineStore('instructor', {
     async getInstructorById(id: string) {
       this.isLoading = true;
       this.error = null;
+      console.log(instructors[0]);
       try {
         const data = await instructorService.getInstructorById(id);
-        this.instructor = data;
+        this.instructor = instructors[0];
       } catch (error) {
         this.error = error as Error;
       } finally {

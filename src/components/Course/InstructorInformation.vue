@@ -38,7 +38,7 @@ const props = defineProps<{
       >
       <span class="flex items-center gap-1 text-sm text-primary-foreground"
         ><PlayIcon class="size-[24px]" />
-        <p>{{ instructor.courses.length }} Courses</p></span
+        <p>4 Courses</p></span
       >
     </div>
   </div>

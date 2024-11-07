@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: !!getItem('accessToken'),
     currentUser: null as User | null,
     isLoading: false,
-    role: 'public',
+    role: '',
   }),
 
   getters: {
@@ -30,6 +30,7 @@ export const useAuthStore = defineStore('auth', {
           // Make sure the role is valid and assigned correctly
           this.role = 'user'; // You can replace this with dynamic role assignment from authenticatedUser
           console.log('User authenticated:', authenticatedUser);
+
           return true;
         }
 

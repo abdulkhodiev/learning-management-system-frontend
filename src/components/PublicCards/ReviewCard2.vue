@@ -2,10 +2,20 @@
 import StarIcon from '@/assets/icons/StarIcon.vue';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import type { ReviewData } from '@/types/reviews';
+import { computed } from 'vue';
 
 const props = defineProps<{
   review: ReviewData;
 }>();
+
+const date = computed(() => {
+  const date = props.review.date;
+  const day = date.getDate();
+  const month = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+
+  return `${day} ${month} ${year}`;
+});
 </script>
 
 <template>
@@ -31,7 +41,7 @@ const props = defineProps<{
           <p class="text-[18px] font-semibold">{{ props.review.rating }}</p>
         </div>
         <p class="text-sm text-primary-foreground">
-          {{ props.review.date }}
+          {{ date }}
         </p>
       </div>
       <p class="p-0 text-primary-foreground">
