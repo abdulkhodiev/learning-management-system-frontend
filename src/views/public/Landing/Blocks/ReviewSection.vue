@@ -6,15 +6,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { reviews } from '@/data';
-import ReviewsCard from '../../../../components/Cards/ReviewsCard.vue';
+import ReviewsCard from '../../../../components/PublicCards/ReviewsCard.vue';
 import { useReviewStore } from '@/stores/reviews';
 import { onMounted } from 'vue';
+import ReviewsCardSkeleton from '@/components/PublicCardSkeletons/ReviewsCardSkeleton.vue';
 
 const reviewsStore = useReviewStore();
 
 onMounted(() => {
-  reviewsStore.getAllReviews();
+  reviewsStore.getTopReviews();
 });
 </script>
 
@@ -43,9 +43,24 @@ onMounted(() => {
           </div>
         </div>
         <div>
-          <CarouselContent class="w-full pt-10 md:p-0">
+          <CarouselContent
+            class="w-full pt-10 md:p-0"
+            v-if="reviewsStore.isLoading"
+          >
             <CarouselItem
-              v-for="testemonial in reviews"
+              v-for="testemonial in reviewsStore.reviews"
+              :key="testemonial.id"
+              class="basis-2/2 md:basis-1/2 lg:basis-1/3"
+            >
+              <ReviewsCardSkeleton />
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselContent
+            class="w-full pt-10 md:p-0"
+            v-else
+          >
+            <CarouselItem
+              v-for="testemonial in reviewsStore.reviews"
               :key="testemonial.id"
               class="basis-2/2 md:basis-1/2 lg:basis-1/3"
             >

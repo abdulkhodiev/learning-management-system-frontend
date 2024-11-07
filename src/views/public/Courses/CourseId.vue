@@ -32,15 +32,22 @@ import {
 import PlayIcon from '@/assets/icons/PlayIcon.vue';
 import { useRouter } from 'vue-router';
 import StarIcon from '@/assets/icons/StarIcon.vue';
-import ReviewCard2 from '@/components/Cards/ReviewCard2.vue';
+import ReviewCard2 from '@/components/PublicCards/ReviewCard2.vue';
 import ReviewSection from '../Landing/Blocks/ReviewSection.vue';
 import ReviewsModal from '@/components/Course/ReviewsModal.vue';
-import CourseCard from '@/components/Cards/CourseCard.vue';
+import CourseCard from '@/components/PublicCards/CourseCard.vue';
 import { userCourseStore } from '@/stores/courses';
 import { computed, onMounted, ref } from 'vue';
 import { courses, instructors, reviews } from '@/data';
 import { useInstructorStore } from '@/stores/instructors';
 import { useReviewStore } from '@/stores/reviews';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import InstructorCardSkeleton from '@/components/PublicCardSkeletons/InstructorCardSkeleton.vue';
+import { Skeleton } from '@/components/ui/skeleton';
+import ReviewCard2Skeleton from '@/components/PublicCardSkeletons/ReviewCard2Skeleton.vue';
+import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkeleton.vue';
+import { toast } from 'vue-sonner';
+import { useCartStore } from '@/stores/cartStore';
 
 // Router Usage
 const router = useRouter();
@@ -81,6 +88,12 @@ const filteredReviews = computed(() => {
   return allReviews.filter(review => review.rating >= selectedRating.value);
 });
 
+const cartStore = useCartStore();
+
+const addtoCard = () => {
+  cartStore.addCourse(course);
+};
+
 const stars = [5, 4, 3, 2, 1];
 </script>
 
@@ -90,7 +103,13 @@ const stars = [5, 4, 3, 2, 1];
       class="absolute inset-0 z-[-1] h-0 w-full bg-thirdary-foreground lg:h-[542px] xl:h-[451px]"
     />
     <div class="max-w-[840px] space-y-10">
-      <div class="space-y-6">
+      <div v-if="courseStore.isLoading">
+        <LoadingSpinner />
+      </div>
+      <div
+        class="space-y-6"
+        v-else
+      >
         <Breadcrumb>
           <BreadcrumbList class="flex items-center gap-2">
             <BreadcrumbItem>
@@ -131,11 +150,14 @@ const stars = [5, 4, 3, 2, 1];
             <div class="flex flex-col gap-4">
               <Button
                 class=":hover:bg-thirdary h-12 w-full bg-thirdary text-sm text-white"
+                @click="addtoCard"
               >
                 Add To Cart</Button
               >
+
               <Button
                 variant="outline"
+                @click="router.push('/user/cart')"
                 class="h-12 w-full border-[1px] border-thirdary text-sm"
                 >Buy Now</Button
               >
@@ -208,33 +230,34 @@ const stars = [5, 4, 3, 2, 1];
           </p>
         </div>
       </div>
+
       <div class="space-y-6">
         <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
           <a href="#description">
             <Button
               variant="outline"
-              class="h-14 w-full text-sm font-normal md:w-[148px]"
+              class="h-14 w-full text-sm font-normal"
               >Description</Button
             >
           </a>
           <a href="#instructor">
             <Button
               variant="outline"
-              class="h-14 w-full text-sm font-normal md:w-[148px]"
+              class="h-14 w-full text-sm font-normal"
               >Instructor</Button
             >
           </a>
           <a href="#syllabus">
             <Button
               variant="outline"
-              class="h-14 w-full text-sm font-normal md:w-[148px]"
+              class="h-14 w-full text-sm font-normal"
               >Syllabus</Button
             >
           </a>
           <a href="#reviews">
             <Button
               variant="outline"
-              class="h-14 w-full text-sm font-normal md:w-[148px]"
+              class="h-14 w-full text-sm font-normal"
               >Reviews</Button
             >
           </a>
@@ -261,8 +284,18 @@ const stars = [5, 4, 3, 2, 1];
         </div>
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
 
-        <div id="instructor">
-          <InstructorInformation :instructor="instructor" />
+        <div
+          id="instructor"
+          class="space-y-6"
+        >
+          <InstructorCardSkeleton
+            v-if="instructorStore.isLoading"
+            class="w-full"
+          />
+          <InstructorInformation
+            :instructor="instructor"
+            v-else
+          />
         </div>
 
         <div class="h-[1px] w-full bg-[#E2E8F0]" />
@@ -274,10 +307,22 @@ const stars = [5, 4, 3, 2, 1];
           Syllabus
         </h4>
 
+        <div
+          class="flex items-center space-x-4"
+          v-if="courseStore.isLoading"
+        >
+          <Skeleton class="h-24 w-24 rounded-xl" />
+          <div class="space-y-2">
+            <Skeleton class="h-12 w-[300px]" />
+            <Skeleton class="h-12 w-[300px]" />
+          </div>
+        </div>
+
         <Accordion
           class="rounded-[8px] border-[1px] border-[#E2E8F0] text-primary-foreground"
           type="single"
           collapsible
+          v-else
         >
           <AccordionItem
             class="px-6 py-2"
@@ -324,7 +369,12 @@ const stars = [5, 4, 3, 2, 1];
     </div>
 
     <!-- Course Buy Card -->
+    <CourseCardSkeleton
+      v-if="courseStore.isLoading"
+      class="w-[400px]"
+    />
     <Card
+      v-else
       class="sticky top-20 hidden h-max min-w-[400px] cursor-pointer flex-col gap-7 rounded-2xl py-4 shadow-[0_0_8px_0_#3B82F61F] lg:flex"
     >
       <CardHeader class="px-4 py-0">
@@ -347,11 +397,13 @@ const stars = [5, 4, 3, 2, 1];
         <div class="flex flex-col gap-4">
           <Button
             class=":hover:bg-thirdary h-12 w-full bg-thirdary text-sm text-white"
+            @click="addtoCard"
           >
             Add To Cart</Button
           >
           <Button
             variant="outline"
+            @click="router.push('/user/cart')"
             class="h-12 w-full border-[1px] border-thirdary text-sm"
             >Buy Now</Button
           >
@@ -404,7 +456,21 @@ const stars = [5, 4, 3, 2, 1];
           />
         </div>
       </div>
-      <div class="flex flex-col gap-4">
+      <div
+        class="flex w-full flex-col gap-4"
+        v-if="reviewStore.isLoading"
+      >
+        <ReviewCard2Skeleton
+          class="w-full"
+          v-for="review in 4"
+          :key="review"
+        />
+        <ReviewsModal :reviews="filteredReviews" />
+      </div>
+      <div
+        class="flex flex-col gap-4"
+        v-else
+      >
         <ReviewCard2
           v-for="review in filteredReviews"
           :key="review.id"
@@ -424,6 +490,16 @@ const stars = [5, 4, 3, 2, 1];
 
     <div
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      v-if="courseStore.isLoading"
+    >
+      <CourseCardSkeleton
+        v-for="i in 4"
+        :key="i"
+      />
+    </div>
+    <div
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      v-else
     >
       <CourseCard
         v-for="card in courses"

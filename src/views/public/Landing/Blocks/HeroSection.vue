@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { Button } from '@/components/ui/button';
+
+const router = useRouter();
 </script>
 
 <template>
@@ -19,7 +22,9 @@ import { Button } from '@/components/ui/button';
         professional, or lifelong learner, our cutting-edge Learning Management
         System is designed to elevate your learning experience.
       </p>
-      <Button class="h-12 w-[238px] text-white"
+      <Button
+        class="h-12 w-[238px] text-white"
+        @click="router.push('/auth/signup')"
         >Start your instructor journey</Button
       >
     </div>

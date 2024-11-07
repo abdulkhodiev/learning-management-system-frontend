@@ -12,9 +12,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import CourseCard from '@/components/Cards/CourseCard.vue';
+import CourseCard from '@/components/PublicCards/CourseCard.vue';
 import ReviewsModal from '@/components/Course/ReviewsModal.vue';
-import ReviewCard2 from '@/components/Cards/ReviewCard2.vue';
+import ReviewCard2 from '@/components/PublicCards/ReviewCard2.vue';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
 import StarIcon from '@/assets/icons/StarIcon.vue';
 

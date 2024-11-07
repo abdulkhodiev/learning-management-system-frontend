@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import CourseCard from '@/components/Cards/CourseCard.vue';
-import InstructorCard from '@/components/Cards/InstructorCard.vue';
+import CourseCard from '@/components/PublicCards/CourseCard.vue';
+import InstructorCard from '@/components/PublicCards/InstructorCard.vue';
 import {
   Accordion,
   AccordionContent,
@@ -20,8 +20,20 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { courses, instructors } from '@/data';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { userCourseStore } from '@/stores/courses';
+import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkeleton.vue';
+import InstructorCardSkeleton from '@/components/PublicCardSkeletons/InstructorCardSkeleton.vue';
+import { useInstructorStore } from '@/stores/instructors';
+
+const courseStore = userCourseStore();
+const instructorStore = useInstructorStore();
+
+onMounted(() => {
+  courseStore.getAllCourses();
+  instructorStore.getAllInstructors();
+});
 
 const router = useRouter();
 
@@ -32,7 +44,7 @@ const selectedRating = ref(0);
 const price = ref(5000);
 
 const filteredCourses = computed(() => {
-  return courses.filter(
+  return courseStore.courses.filter(
     course =>
       course.rating >= selectedRating.value && course.price <= price.value
   );
@@ -177,7 +189,7 @@ const selectRating = (rating: number) => {
       </div>
     </div>
 
-    <div class="container flex justify-between gap-6">
+    <div class="container flex w-full justify-between gap-6">
       <div class="hidden min-w-[300px] md:block">
         <Accordion
           type="single"
@@ -251,7 +263,20 @@ const selectRating = (rating: number) => {
         </Accordion>
       </div>
 
-      <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+      <div
+        class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"
+        v-if="courseStore.isLoading"
+      >
+        <CourseCardSkeleton
+          class="w-full"
+          v-for="i in 6"
+          :key="i"
+        />
+      </div>
+      <div
+        class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"
+        v-else
+      >
         <CourseCard
           v-for="card in filteredCourses"
           :key="card.id"
@@ -267,6 +292,16 @@ const selectRating = (rating: number) => {
         <h2>Top Mentors</h2>
         <div
           class="grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4"
+          v-if="instructorStore.isLoading"
+        >
+          <InstructorCardSkeleton
+            v-for="i in 4"
+            :key="i"
+          />
+        </div>
+        <div
+          class="grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4"
+          v-else
         >
           <InstructorCard
             v-for="card in instructors"
@@ -284,6 +319,16 @@ const selectRating = (rating: number) => {
         <h2>Featured Courses</h2>
         <div
           class="grid grid-cols-1 justify-between gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          v-if="courseStore.isLoading"
+        >
+          <CourseCardSkeleton
+            v-for="i in 4"
+            :key="i"
+          />
+        </div>
+        <div
+          class="grid grid-cols-1 justify-between gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          v-else
         >
           <CourseCard
             v-for="card in courses.length > 4 ? courses.slice(0, 4) : courses"

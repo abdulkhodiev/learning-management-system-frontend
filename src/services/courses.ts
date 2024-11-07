@@ -1,16 +1,19 @@
 import { $api } from '@/http/interceptor';
 
-const getCourses = async () => {
-  const response = await $api.get('/reviews');
-  return response.data;
+const getCourses = () => {
+  return $api.get('/courses');
 };
 
-const getCourseById = async (id: string) => {
-  const response = await $api.get(`/courses/${id}`);
-  return response.data;
+const getTopCourses = () => {
+  return $api.get('/courses/top');
+};
+
+const getCourseById = (id: string) => {
+  return $api.get(`/courses/${id}`);
 };
 
 export default {
   getCourses,
   getCourseById,
+  getTopCourses,
 };

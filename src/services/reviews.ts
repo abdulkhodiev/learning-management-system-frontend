@@ -2,16 +2,18 @@ import { $apiAuth } from '@/http/interceptor';
 import { type ReviewsData } from '@/types/reviews';
 
 const getReviews = () => {
-  const response = $apiAuth.get<ReviewsData>('/reviews');
-  return response.then(response => response.data);
+  return $apiAuth.get<ReviewsData>('/reviews');
 };
 
-const getReviewsByCourseId = (id: string) => {
-  const response = $apiAuth.get<ReviewsData>('/reviews?courseId=' + id);
-  return response.then(response => response.data);
+const getTopReviews = () => {
+  return $apiAuth.get<ReviewsData>('/reviews/top');
 };
 
+const getReviewsByCourseId = (courseId: number) => {
+  return $apiAuth.get<ReviewsData>(`/reviews/course/${courseId}`);
+};
 export default {
   getReviewsByCourseId,
   getReviews,
+  getTopReviews,
 };

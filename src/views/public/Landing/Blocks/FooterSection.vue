@@ -10,7 +10,7 @@ import {
 
 <template>
   <footer
-    class="mt-[60px] flex h-full items-center justify-center rounded-t-2xl bg-secondary py-10 md:h-[400px] md:p-0"
+    class="mt-[60px] flex h-full items-center justify-center bg-secondary py-10 md:h-[400px] md:p-0"
   >
     <div
       class="container flex flex-col justify-between gap-10 md:flex-row md:items-start"

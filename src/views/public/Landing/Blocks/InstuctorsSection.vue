@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import InstructorCard from '@/components/Cards/InstructorCard.vue';
-import { instructors } from '@/data';
+import InstructorCard from '@/components/PublicCards/InstructorCard.vue';
+import InstructorCardSkeleton from '@/components/PublicCardSkeletons/InstructorCardSkeleton.vue';
+import { useInstructorStore } from '@/stores/instructors';
+import { onMounted } from 'vue';
+
+const instructoreStore = useInstructorStore();
+
+onMounted(() => {
+  instructoreStore.getAllTopInstructors();
+});
 </script>
 
 <template>
@@ -13,13 +21,20 @@ import { instructors } from '@/data';
         >See all</RouterLink
       >
     </div>
-    <div class="grid w-full grid-cols-2 gap-6 md:grid-cols-4">
+    <div class="grid w-full grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
       <InstructorCard
-        v-for="card in instructors.length > 4
-          ? instructors.slice(0, 4)
-          : instructors"
+        v-for="card in instructoreStore.instructors"
         :key="card.id"
         :card="card"
+      />
+    </div>
+    <div
+      class="grid w-full grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5"
+      v-if="instructoreStore.isLoading"
+    >
+      <InstructorCardSkeleton
+        v-for="i in 4"
+        :key="i"
       />
     </div>
   </section>

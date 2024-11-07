@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { topCategories } from '../data';
-import CategoriesCard from '@/components/Cards/CategoriesCard.vue';
+import CategoriesCard from '@/components/PublicCards/CategoriesCard.vue';
 </script>
 
 <template>

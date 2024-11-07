@@ -7,15 +7,26 @@ import {
   PaginationNext,
   PaginationPrev,
 } from '@/components/ui/pagination';
+
+const props = defineProps({
+  total: {
+    type: Number,
+    default: 10,
+  },
+  siblingCount: {
+    type: Number,
+    default: 1,
+  },
+});
 </script>
 
 <template>
   <Pagination
     v-slot="{ page }"
-    :total="20"
-    :sibling-count="1"
+    :total="props.total"
+    :sibling-count="props.siblingCount"
     show-edges
-    :default-page="2"
+    :default-page="1"
     class="shadow-[0_0_8px_0_#3B82F61F]"
   >
     <PaginationList

@@ -11,7 +11,7 @@ import Input from '@/components/ui/input/Input.vue';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-vue-next';
 import { toTypedSchema } from '@vee-validate/zod';
-import AuthCards from '@/components/Cards/AuthCards.vue';
+import AuthCards from '@/components/PublicCards/AuthCards.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const auth = useAuthStore();

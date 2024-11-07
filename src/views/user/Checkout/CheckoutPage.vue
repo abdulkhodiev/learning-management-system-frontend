@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button';
 import { toTypedSchema } from '@vee-validate/zod';
 import Label from '@/components/ui/label/Label.vue';
 
-import TotalPriceCard from '@/components/Cards/TotalPriceCard.vue';
+import TotalPriceCard from '@/components/PublicCards/TotalPriceCard.vue';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';

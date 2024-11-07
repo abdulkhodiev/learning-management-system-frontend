@@ -30,7 +30,7 @@ const router = useRouter();
         </p>
         <Button
           class="bg-thirdary px-6 py-2.5 text-sm font-medium text-white"
-          @click="router.push('/')"
+          @click="router.push('/auth/signup')"
           >Start Your Instructor Journey
           <ArrowRight class="ml-2 text-white" />
         </Button>
@@ -51,7 +51,7 @@ const router = useRouter();
         </p>
         <Button
           class="bg-thirdary px-6 py-2.5 text-center text-sm font-medium text-white md:text-start"
-          @click="router.push('/')"
+          @click="router.push('/courses')"
           >Checkout Courses
           <ArrowRight class="ml-2 text-white" />
         </Button>

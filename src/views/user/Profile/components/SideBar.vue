@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import ShaereIcon from '@/assets/icons/ShaereIcon.vue';
-import avatar from '@/assets/reviewers/image.png';
 import { Button } from '@/components/ui/button';
+import { useUserStore } from '@/stores/userProfile';
+
+const userStore = useUserStore();
+
+const user = userStore.user;
 
 const links = [
   {
@@ -33,11 +37,11 @@ const links = [
   >
     <div class="flex flex-col items-center justify-center gap-4 p-10 pb-0">
       <img
-        :src="avatar"
+        :src="user.profilePicture"
         alt="avatar"
         class="w-full rounded-full object-cover"
       />
-      <h2>John Doe</h2>
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
       <Button
         variant="outline"
         class="h-12 w-full text-sm"

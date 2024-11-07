@@ -11,32 +11,18 @@ import {
 } from '@/components/ui/select';
 import SearchInput from '@/components/SearchInput.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
-import MentorCard from '@/components/Cards/UserProfileCards/MentorCard.vue';
+import MentorCard from '@/components/UserProfileCards/MentorCard.vue';
 import { useUserStore } from '@/stores/userProfile';
-import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import InstructorCardSkeleton from '@/components/PublicCardSkeletons/InstructorCardSkeleton.vue';
 
 const stars = [5, 4, 3, 2, 1];
-const chapters = ['1-10', '10-15', '15-20'];
-
-const price = ref(5000);
 
 const router = useRouter();
 
 const userStore = useUserStore();
-
-onMounted(() => {
-  userStore.getUserProfile();
-});
 </script>
 
 <template>
@@ -100,12 +86,23 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div
+      class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+      v-if="userStore.isLoading"
+    >
+      <InstructorCardSkeleton
+        v-for="i in 4"
+        :key="i"
+      />
+    </div>
+    <div
+      class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+      v-else
+    >
       <MentorCard
         v-for="mentor in userStore.user.instructors"
         :key="mentor.id"
         :card="mentor"
-        lcl
         @click="router.push(`/mentor/${mentor.id}`)"
       />
     </div>

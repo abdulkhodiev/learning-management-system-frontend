@@ -26,8 +26,8 @@ const router = useRouter();
         {{ card.title }}
       </h3>
       <p class="text-sm text-primary-foreground">
-        <!-- By {{ props.card.instructor.firstName }}
-        {{ props.card.instructor.lastName }} -->
+        By {{ props.card.instructor.firstName }}
+        {{ props.card.instructor.lastName }}
       </p>
       <div class="flex items-center gap-2">
         <StarsIcon :rating="props.card.rating" />

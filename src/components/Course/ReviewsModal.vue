@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import ReviewCard2 from '../Cards/ReviewCard2.vue';
+import ReviewCard2 from '../PublicCards/ReviewCard2.vue';
 import { Button } from '../ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { ReviewsData } from '@/types/reviews';

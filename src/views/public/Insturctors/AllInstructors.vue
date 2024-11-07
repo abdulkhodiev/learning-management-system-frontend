@@ -1,10 +1,10 @@
 p
 <script setup lang="ts">
-import InstructorCard from '@/components/Cards/InstructorCard.vue';
+import InstructorCard from '@/components/PublicCards/InstructorCard.vue';
 import { onMounted } from 'vue';
 import { useInstructorStore } from '@/stores/instructors';
-import { instructors } from '@/data';
 import { useRouter } from 'vue-router';
+import InstructorCardSkeleton from '@/components/PublicCardSkeletons/InstructorCardSkeleton.vue';
 
 const router = useRouter();
 
@@ -22,14 +22,21 @@ onMounted(() => {});
     <h1 class="text-xl font-bold text-thirdary md:text-[40px]">
       All Instructors
     </h1>
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
-      <!-- <CourseCard
-        v-for="card in courseStore.courses"
-        :key="card.id"
-        :card="card"
-      /> -->
+    <div
+      class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5"
+      v-if="instructorStore.isLoading"
+    >
+      <InstructorCardSkeleton
+        v-for="card in 5"
+        :key="card"
+      />
+    </div>
+    <div
+      class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5"
+      v-else
+    >
       <InstructorCard
-        v-for="card in instructors"
+        v-for="card in instructorStore.instructors"
         :key="card.id"
         :card="card"
         @click="router.push(`/mentor/${card.id}`)"

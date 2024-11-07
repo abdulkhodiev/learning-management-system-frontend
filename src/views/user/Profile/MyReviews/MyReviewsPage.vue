@@ -1,21 +1,39 @@
 <script lang="ts" setup>
 import PaginationComponent from '@/components/PaginationComponent.vue';
-import ReviewsCard from '@/components/Cards/UserProfileCards/ReviewsCard.vue';
-import { review2 } from '@/views/public/Landing/data';
+import ReviewsCardSkeleton from '@/components/PublicCardSkeletons/ReviewsCardSkeleton.vue';
+import ReviewsCard from '@/components/UserProfileCards/ReviewsCard.vue';
+import { useUserStore } from '@/stores/userProfile';
+
+const userStore = useUserStore();
 </script>
 
 <template>
   <div class="w-full space-y-4">
     <h2>Reviews</h2>
-    <div class="space-y-4">
+    <div
+      class="space-y-4"
+      v-if="userStore.isLoading"
+    >
+      <ReviewsCardSkeleton
+        v-for="i in 3"
+        :key="i"
+      />
+    </div>
+    <div
+      class="space-y-4"
+      v-else
+    >
       <ReviewsCard
-        v-for="review in review2"
+        v-for="review in userStore.user.reviews"
         :key="review.id"
         :review="review"
       />
     </div>
     <div class="flex justify-center">
-      <PaginationComponent />
+      <PaginationComponent
+        :total="userStore.user.reviews.length"
+        :sibling-count="1"
+      />
     </div>
   </div>
 </template>

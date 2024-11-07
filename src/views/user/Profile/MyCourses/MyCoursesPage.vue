@@ -17,12 +17,19 @@ import {
 } from '@/components/ui/accordion';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import SearchInput from '@/components/SearchInput.vue';
-import BoughtCourseCard from '@/components/Cards/UserProfileCards/BoughtCourseCard.vue';
+import BoughtCourseCard from '@/components/UserProfileCards/BoughtCourseCard.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
 import { computed, ref } from 'vue';
-import { courses } from '@/data';
-import StarsIcon from '@/assets/icons/StarsIcon.vue';
 
+import StarsIcon from '@/assets/icons/StarsIcon.vue';
+import { useUserStore } from '@/stores/userProfile';
+import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkeleton.vue';
+
+const userProfileStore = useUserStore();
+
+const courses = userProfileStore.user?.boughtCourses || [];
+
+console.log(courses);
 const stars = [5, 4, 3, 2, 1];
 const chapters = ['1-10', '10-15', '15-20'];
 
@@ -76,7 +83,7 @@ const selectRating = (rating: number) => {
             </SelectContent>
           </Select>
           <Dialog>
-            <DialogTrigger class="md:hidden">
+            <DialogTrigger class="">
               <Button
                 class="h-12 border-[1px] border-thirdary bg-transparent px-6 py-2.5 hover:bg-transparent"
               >
@@ -163,7 +170,19 @@ const selectRating = (rating: number) => {
         </div>
       </div>
     </div>
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div
+      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+      v-if="userProfileStore.isLoading"
+    >
+      <CourseCardSkeleton
+        v-for="i in 3"
+        :key="i"
+      />
+    </div>
+    <div
+      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+      v-else
+    >
       <BoughtCourseCard
         v-for="course in filteredCourses"
         :key="course.id"
@@ -171,7 +190,10 @@ const selectRating = (rating: number) => {
       />
     </div>
     <div class="flex justify-center">
-      <PaginationComponent />
+      <PaginationComponent
+        :total="filteredCourses.length"
+        :sibling-count="1"
+      />
     </div>
   </div>
 </template>

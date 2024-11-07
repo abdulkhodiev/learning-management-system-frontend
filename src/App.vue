@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router';
 import { Navbar } from './components/Navbar';
 import MobileSheet from './components/Navbar/MobileSheet.vue';
+import { Toaster } from '@/components/ui/sonner';
 </script>
 
 <template>
@@ -16,5 +17,9 @@ import MobileSheet from './components/Navbar/MobileSheet.vue';
     />
 
     <RouterView />
+    <Toaster
+      position="top-center"
+      :richColors="true"
+    />
   </div>
 </template>

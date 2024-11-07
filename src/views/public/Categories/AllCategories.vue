@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CategoriesCard from '@/components/Cards/CategoriesCard.vue';
+import CategoriesCard from '@/components/PublicCards/CategoriesCard.vue';
 import { topCategories } from '../Landing/data';
 </script>
 

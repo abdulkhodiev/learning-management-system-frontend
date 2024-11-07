@@ -2,6 +2,14 @@
 import { RouterView } from 'vue-router';
 import SideBar from './components/SideBar.vue';
 import BottomBar from './components/BottomBar.vue';
+import { useUserStore } from '@/stores/userProfile';
+import { onMounted } from 'vue';
+
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.getUserProfile();
+});
 </script>
 
 <template>

@@ -7,15 +7,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import CourseCard from '@/components/Cards/CourseCard.vue';
+import CourseCard from '@/components/PublicCards/CourseCard.vue';
 import StarsIcon from '@/assets/icons/StarsIcon.vue';
-import ReviewCard2 from '@/components/Cards/ReviewCard2.vue';
+import ReviewCard2 from '@/components/PublicCards/ReviewCard2.vue';
 import ReviewsModal from '@/components/Course/ReviewsModal.vue';
 import { useInstructorStore } from '@/stores/instructors';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { instructors, reviews as allReviews, courses } from '@/data';
 import { userCourseStore } from '@/stores/courses';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkeleton.vue';
+import ReviewCard2Skeleton from '@/components/PublicCardSkeletons/ReviewCard2Skeleton.vue';
 
 const router = useRouter();
 const instructorId = router.currentRoute.value.params.mentorId as string;
@@ -49,7 +52,13 @@ const stars = [5, 4, 3, 2, 1];
 
 <template>
   <div class="space-y-8 py-10">
-    <div class="container flex flex-col justify-between gap-3 lg:flex-row">
+    <div v-if="instructorStore.isLoading">
+      <LoadingSpinner />
+    </div>
+    <div
+      class="container flex flex-col justify-between gap-3 lg:flex-row"
+      v-else
+    >
       <div class="order-2 max-w-[840px] space-y-10 lg:order-1">
         <div class="space-y-4">
           <p>Instructor</p>
@@ -126,6 +135,7 @@ const stars = [5, 4, 3, 2, 1];
         </div>
       </div>
     </div>
+
     <div
       class="flex w-full items-center justify-center bg-thirdary-foreground py-10 md:h-[512px] md:py-0"
     >
@@ -153,7 +163,16 @@ const stars = [5, 4, 3, 2, 1];
             </div>
           </div>
           <div class="mt-5 md:mt-0">
-            <CarouselContent>
+            <CarouselContent v-if="instructorStore.isLoading">
+              <CarouselItem
+                v-for="i in 4"
+                :key="i"
+                class="basis-2/2 md:basis-1/3 lg:basis-1/4"
+              >
+                <CourseCardSkeleton />
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselContent v-else>
               <CarouselItem
                 v-for="card in instructor.courses"
                 :key="card.id"
@@ -196,12 +215,28 @@ const stars = [5, 4, 3, 2, 1];
             />
           </div>
         </div>
-        <div class="flex flex-col gap-4">
+        <div
+          class="flex w-full flex-col gap-4"
+          v-if="instructorStore.isLoading"
+        >
+          <ReviewCard2Skeleton
+            v-for="i in 3"
+            :key="i"
+            class="w-full"
+          />
+
+          <ReviewsModal :reviews="filteredReviews" />
+        </div>
+        <div
+          class="flex flex-col gap-4"
+          v-else
+        >
           <ReviewCard2
             v-for="review in filteredReviews"
             :key="review.id"
             :review="review"
           />
+
           <ReviewsModal :reviews="filteredReviews" />
         </div>
       </div>

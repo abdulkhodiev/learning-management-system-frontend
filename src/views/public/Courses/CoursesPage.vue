@@ -1,6 +1,6 @@
-p
 <script setup lang="ts">
-import CourseCard from '@/components/Cards/CourseCard.vue';
+import CourseCard from '@/components/PublicCards/CourseCard.vue';
+import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkeleton.vue';
 import { courses } from '@/data';
 import { userCourseStore } from '@/stores/courses';
 import { onMounted } from 'vue';
@@ -17,12 +17,17 @@ onMounted(() => {
     <h1 class="text-xl font-bold text-thirdary md:text-[40px]">All Courses</h1>
     <div
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      v-if="courseStore.isLoading"
     >
-      <!-- <CourseCard
-        v-for="card in courseStore.courses"
-        :key="card.id"
-        :card="card"
-      /> -->
+      <CourseCardSkeleton
+        v-for="i in 12"
+        :key="i"
+      />
+    </div>
+    <div
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      v-else
+    >
       <CourseCard
         v-for="card in courses"
         :key="card.id"
