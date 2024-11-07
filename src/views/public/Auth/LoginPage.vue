@@ -13,6 +13,10 @@ import { ArrowRight } from 'lucide-vue-next';
 import { toTypedSchema } from '@vee-validate/zod';
 import AuthCards from '@/components/PublicCards/AuthCards.vue';
 import { useAuthStore } from '@/stores/auth';
+import { toast } from 'vue-sonner';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const auth = useAuthStore();
 
@@ -32,14 +36,13 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit(async values => {
-  try {
-    await auth.login({
-      email: values.username,
-      password: values.password,
-    });
-    console.log('Login successful');
-  } catch (error) {
-    console.error('Login failed:', error);
+  const isAuthenticated = await auth.fakeLogin(values);
+
+  if (isAuthenticated) {
+    router.push('/user/profile/account');
+    toast.success('Login successful');
+  } else {
+    toast.error('Login failed');
   }
 });
 </script>

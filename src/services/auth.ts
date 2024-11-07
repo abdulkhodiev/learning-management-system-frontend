@@ -7,6 +7,7 @@ import {
 
 const login = async (data: LoginRequest) => {
   const response = await $apiAuth.post<AuthResponse>('/auth/login', data);
+
   return response.data;
 };
 
