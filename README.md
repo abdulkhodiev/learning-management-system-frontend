@@ -6,10 +6,6 @@ This repository contains the frontend for the Learning Management System (LMS). 
 
 - [Installation](#installation)
 - [Development](#development)
-- [Building for Production](#building-for-production)
-- [Docker Support](#docker-support)
-- [Deployment](#deployment)
-- [License](#license)
 
 ## Installation
 
