@@ -2,11 +2,6 @@
 
 This repository contains the frontend for the Learning Management System (LMS). It is built with **Vue.js**, **Vite**, and **Docker**. The frontend provides a web interface for managing courses, students, and instructors in the LMS.
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Development](#development)
-
 ## Installation
 
 ## Running the Application with Docker by Pulling from Docker Hub
