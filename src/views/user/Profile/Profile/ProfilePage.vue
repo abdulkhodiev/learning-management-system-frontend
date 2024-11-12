@@ -83,7 +83,7 @@ onMounted(() => {
   });
 });
 // Reference for the file input
-const fileInputRef = ref(null);
+const fileInputRef = ref<HTMLInputElement | null>(null);
 
 const handleFileClick = () => {
   fileInputRef.value?.click();

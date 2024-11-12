@@ -46,7 +46,6 @@ import InstructorCardSkeleton from '@/components/PublicCardSkeletons/InstructorC
 import { Skeleton } from '@/components/ui/skeleton';
 import ReviewCard2Skeleton from '@/components/PublicCardSkeletons/ReviewCard2Skeleton.vue';
 import CourseCardSkeleton from '@/components/PublicCardSkeletons/CourseCardSkeleton.vue';
-import { toast } from 'vue-sonner';
 import { useCartStore } from '@/stores/cartStore';
 
 // Router Usage
@@ -66,7 +65,7 @@ onMounted(() => {
 const instructorStore = useInstructorStore();
 
 onMounted(() => {
-  instructorStore.getInstructorById(course.instructor.id);
+  instructorStore.getInstructorById(instructorStore.instructor.id);
 });
 
 const instructor = instructors[0];

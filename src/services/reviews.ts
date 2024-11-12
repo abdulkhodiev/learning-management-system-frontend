@@ -9,7 +9,7 @@ const getTopReviews = () => {
   return $apiAuth.get<ReviewsData>('/reviews/top');
 };
 
-const getReviewsByCourseId = (courseId: number) => {
+const getReviewsByCourseId = (courseId: string) => {
   return $apiAuth.get<ReviewsData>(`/reviews/course/${courseId}`);
 };
 export default {

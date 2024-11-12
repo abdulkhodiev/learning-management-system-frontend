@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: !!getItem('accessToken'),
     currentUser: null as User | null,
     isLoading: false,
-    role: '',
+    role: 'public',
   }),
 
   getters: {

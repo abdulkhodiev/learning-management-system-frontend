@@ -1,39 +1,35 @@
-# .
+# Learning Management System Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+This repository contains the frontend for the Learning Management System (LMS). It is built with **Vue.js**, **Vite**, and **Docker**. The frontend provides a web interface for managing courses, students, and instructors in the LMS.
 
-## Recommended IDE Setup
+## Table of Contents
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [Installation](#installation)
+- [Development](#development)
+- [Building for Production](#building-for-production)
+- [Docker Support](#docker-support)
+- [Deployment](#deployment)
+- [License](#license)
 
-## Type Support for `.vue` Imports in TS
+## Installation
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Running the Application with Docker by Pulling from Docker Hub
 
-## Customize configuration
+To run the application using Docker without building it locally, you can pull the pre-built image from Docker Hub and run it directly.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+1. **Pull the Docker image**:
 
-## Project Setup
+   Run the following command to pull the Docker image:
 
-```sh
-pnpm install
-```
+   ```bash
+   docker run -p 3000:3000 abdulkhodiev/learning-management-system-frontend
+   ```
 
-### Compile and Hot-Reload for Development
+To set up the project locally, follow these steps:
 
-```sh
-pnpm dev
-```
+1. **Clone the repository**:
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+   ```bash
+   git clone https://github.com/abdulkhodiev/learning-management-system-frontend.git
+   cd learning-management-system-frontend
+   ```
