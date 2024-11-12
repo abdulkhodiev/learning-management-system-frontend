@@ -24,3 +24,10 @@ To set up the project locally, follow these steps:
    git clone https://github.com/abdulkhodiev/learning-management-system-frontend.git
    cd learning-management-system-frontend
    ```
+
+2. **Build the Docker Image**:
+
+   ```bash
+   docker-compose build
+   docker-compose up
+   ```
