@@ -207,7 +207,6 @@ const onSubmit = handleSubmit(values => {
         </Card>
         <TotalPriceCard />
         <Button
-          @click="router.push('/user/checkout/complete')"
           class="h-12 w-full rounded-lg border-[1px] border-thirdary bg-thirdary text-sm text-white"
           >Proceed to Checkout</Button
         >
